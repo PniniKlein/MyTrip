@@ -18,9 +18,9 @@
             
         }
 
-        public Trip(Trip t)
+        public Trip(int id,Trip t)
         {
-            Id =t.Id;
+            Id =id;
             DateOfStart = t.DateOfStart;
             DateOfEnd = t.DateOfEnd;
             NumOfNights = t.NumOfNights;

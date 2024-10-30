@@ -18,9 +18,9 @@ namespace MyTrip.Entities
         {        
         }
 
-        public User(User u)
+        public User(int id,User u)
         {
-            Id = u.Id;
+            Id = id;
             TZ = u.TZ;
             Name = u.Name;
             Age = u.Age;

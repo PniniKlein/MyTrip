@@ -6,6 +6,7 @@ namespace MyTrip.Servicies
     public class OrderServicies
     {
         static List<Order> dataOrders = new List<Order>();
+        static private int count = 0;
 
         public List<Order> Get()
         {
@@ -18,16 +19,16 @@ namespace MyTrip.Servicies
 
         public ActionResult<bool> Add(Order order)
         {
-            dataOrders.Add(order);
+            dataOrders.Add(new Order(count++,order));
             return true;
         }
-        public ActionResult<bool> Update(Order order)
+        public ActionResult<bool> Update(int id,Order order)
         {
             for (int i = 0; i < dataOrders.Count; i++)
             {
                 if (dataOrders[i].Id == order.Id)
                 {
-                    dataOrders[i] = new Order(order);
+                    dataOrders[i] = new Order(id, order);
                     return true;
                 }
             }

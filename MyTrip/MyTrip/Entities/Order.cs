@@ -15,9 +15,9 @@
             
         }
 
-        public Order(Order o)
+        public Order(int id,Order o)
         {
-            Id = o.Id;
+            Id = id;
             TripCode = o.TripCode;
             UserCode = o.UserCode;
             NumOfTickets = o.NumOfTickets;

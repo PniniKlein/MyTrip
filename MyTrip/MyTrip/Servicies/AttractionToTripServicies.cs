@@ -6,6 +6,7 @@ namespace MyTrip.Servicies
     public class AttractionToTripServicies
     {
         static List<AttractionToTrip> dataAttractoinToTrip = new List<AttractionToTrip>();
+        private static int count = 0;
 
         public List<AttractionToTrip> Get()
         {
@@ -18,16 +19,16 @@ namespace MyTrip.Servicies
 
         public ActionResult<bool> Add(AttractionToTrip attractionToTrip)
         {
-            dataAttractoinToTrip.Add(attractionToTrip);
+            dataAttractoinToTrip.Add(new AttractionToTrip(count++, attractionToTrip));
             return true;
         }
-        public ActionResult<bool> Update(AttractionToTrip attractionToTrip)
+        public ActionResult<bool> Update(int id,AttractionToTrip attractionToTrip)
         {
             for (int i = 0; i < dataAttractoinToTrip.Count; i++)
             {
                 if (dataAttractoinToTrip[i].Id == attractionToTrip.Id)
                 {
-                    dataAttractoinToTrip[i] = new AttractionToTrip(attractionToTrip);
+                    dataAttractoinToTrip[i] = new AttractionToTrip(id,attractionToTrip);
                     return true;
                 }
             }

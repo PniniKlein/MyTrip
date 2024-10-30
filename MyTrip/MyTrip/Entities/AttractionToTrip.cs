@@ -10,9 +10,9 @@
             
         }
 
-        public AttractionToTrip(AttractionToTrip a)
+        public AttractionToTrip(int id,AttractionToTrip a)
         {
-            Id = a.Id;
+            Id = id;
             TripCode = a.TripCode;
             AttractionCode = a.AttractionCode;
         }

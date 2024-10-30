@@ -17,9 +17,9 @@
             
         }
 
-        public Guide(Guide g)
+        public Guide(int id,Guide g)
         {
-            Id = g.Id;
+            Id = id;
             TZ = g.TZ;
             Name = g.Name;
             Age = g.Age;

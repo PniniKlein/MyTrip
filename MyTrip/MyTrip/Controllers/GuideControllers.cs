@@ -36,7 +36,7 @@ namespace MyTrip.Controllers
         [HttpPut("{id}")]
         public ActionResult<bool> Put(int id, [FromBody] Guide guide)
         {
-            return service.Update(guide);
+            return service.Update(id, guide);
         }
 
         // DELETE api/<UserControllers>/5

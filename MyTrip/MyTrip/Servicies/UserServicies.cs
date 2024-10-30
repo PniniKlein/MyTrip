@@ -6,6 +6,7 @@ namespace MyTrip.Servicies
     public class UserServicies
     {
         static List<User> dataUsers = new List<User>();
+        private static int count = 0;
 
         public List<User> Get()
         {
@@ -18,16 +19,16 @@ namespace MyTrip.Servicies
 
         public ActionResult<bool> Add(User user)
         {
-            dataUsers.Add(user);
+            dataUsers.Add(new User(count++,user));
             return true;
         }
-        public ActionResult<bool> Update(User user)
+        public ActionResult<bool> Update(int id,User user)
         {
             for (int i = 0; i < dataUsers.Count; i++)
             {
                 if (dataUsers[i].Id==user.Id)
                 {
-                    dataUsers[i] = new User(user);
+                    dataUsers[i] = new User(id,user);
                     return true;
                 }
             }

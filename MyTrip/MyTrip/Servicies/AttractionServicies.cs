@@ -6,6 +6,7 @@ namespace MyTrip.Servicies
     public class AttractionServicies
     {
         static List<Attraction> dataAttractions = new List<Attraction>();
+        private static int id = 0;
 
         public List<Attraction> Get()
         {
@@ -17,17 +18,17 @@ namespace MyTrip.Servicies
         }
 
         public ActionResult<bool> Add(Attraction attraction)
-        {
-            dataAttractions.Add(attraction);
+        { 
+            dataAttractions.Add(new Attraction(id++, attraction));
             return true;
         }
-        public ActionResult<bool> Update(Attraction attraction)
+        public ActionResult<bool> Update(int id,Attraction attraction)
         {
             for (int i = 0; i < dataAttractions.Count; i++)
             {
                 if (dataAttractions[i].Id == attraction.Id)
                 {
-                    dataAttractions[i] = new Attraction(attraction);
+                    dataAttractions[i] = new Attraction(id,attraction);
                     return true;
                 }
             }

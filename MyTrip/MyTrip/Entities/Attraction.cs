@@ -13,9 +13,9 @@
             
         }
 
-        public Attraction(Attraction a)
+        public Attraction(int id,Attraction a)
         {
-            Id = a.Id;
+            Id = id;
             Name = a.Name;
             Place = a.Place;
             Description = a.Description;
