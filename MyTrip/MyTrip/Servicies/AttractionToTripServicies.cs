@@ -6,7 +6,6 @@ namespace MyTrip.Servicies
     public class AttractionToTripServicies
     {
         static List<AttractionToTrip> dataAttractoinToTrip = new List<AttractionToTrip>();
-        private static int count = 0;
 
         public List<AttractionToTrip> Get()
         {
@@ -19,7 +18,7 @@ namespace MyTrip.Servicies
 
         public ActionResult<bool> Add(AttractionToTrip attractionToTrip)
         {
-            dataAttractoinToTrip.Add(new AttractionToTrip(count++, attractionToTrip));
+            dataAttractoinToTrip.Add(new AttractionToTrip(attractionToTrip));
             return true;
         }
         public ActionResult<bool> Update(int id,AttractionToTrip attractionToTrip)

@@ -2,7 +2,8 @@
 {
     public class Trip
     {
-        public int Id { get; set; }
+        static int count = 1;
+        public int Id { get; private set; }
         public DateTime DateOfStart { get; set; }
         public DateTime DateOfEnd { get; set; }
         public int NumOfNights { get; set; }
@@ -21,6 +22,20 @@
         public Trip(int id,Trip t)
         {
             Id =id;
+            DateOfStart = t.DateOfStart;
+            DateOfEnd = t.DateOfEnd;
+            NumOfNights = t.NumOfNights;
+            Country = t.Country;
+            ItemNeeded = t.ItemNeeded;
+            TypeOfTrip = t.TypeOfTrip;
+            PlaceMeeting = t.PlaceMeeting;
+            GuideCode = t.GuideCode;
+            Price = t.Price;
+            IncludeSleepingAndMeal = t.IncludeSleepingAndMeal;
+        }
+        public Trip(Trip t)
+        {
+            Id = count++;
             DateOfStart = t.DateOfStart;
             DateOfEnd = t.DateOfEnd;
             NumOfNights = t.NumOfNights;

@@ -2,7 +2,8 @@
 {
     public class Guide
     {
-        public int Id { get; set; }
+        static int count = 1;
+        public int Id { get; private set; }
         public int TZ { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
@@ -20,6 +21,19 @@
         public Guide(int id,Guide g)
         {
             Id = id;
+            TZ = g.TZ;
+            Name = g.Name;
+            Age = g.Age;
+            City = g.City;
+            Street = g.Street;
+            Phone = g.Phone;
+            Email = g.Email;
+            Experience = g.Experience;
+            SalaryToDay = g.SalaryToDay;
+        }
+        public Guide(Guide g)
+        {
+            Id = count++;
             TZ = g.TZ;
             Name = g.Name;
             Age = g.Age;
