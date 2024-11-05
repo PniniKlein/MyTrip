@@ -6,7 +6,7 @@ namespace MyTrip.Entities
     {
         static int count = 1;
         public int Id { get; private set; }
-        public int TZ { get; set; }
+        public string TZ { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
         public string City { get; set; }

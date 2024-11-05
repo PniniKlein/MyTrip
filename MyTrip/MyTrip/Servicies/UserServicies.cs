@@ -5,37 +5,56 @@ namespace MyTrip.Servicies
 {
     public class UserServicies
     {
-        static List<User> dataUsers = new List<User>();
-
         public List<User> Get()
         {
-            return dataUsers;
+            return DataContexManager.data.users;
         }
         public User GetById(int id)
         {
-            return dataUsers.FirstOrDefault(x => x.Id == id);
+            return DataContexManager.data.users.FirstOrDefault(x => x.Id == id);
         }
 
-        public ActionResult<bool> Add(User user)
+        public bool Add(User user)
         {
-            dataUsers.Add(new User(user));
+            if (!CorrectTZ(user.TZ))
+                return false;
+            DataContexManager.data.users.Add(new User(user));
             return true;
         }
-        public ActionResult<bool> Update(int id,User user)
+        public bool Update(int id, User user)
         {
-            for (int i = 0; i < dataUsers.Count; i++)
+            if (!CorrectTZ(user.TZ))
+                return false;
+            int index = DataContexManager.data.users.FindIndex(x => x.Id == id);
+            if (index != -1)
             {
-                if (dataUsers[i].Id==user.Id)
-                {
-                    dataUsers[i] = new User(id,user);
-                    return true;
-                }
+                DataContexManager.data.users[index] = new User(id, user);
+                return true;
             }
             return false;
         }
-        public ActionResult<bool> Delete(int id)
+        public bool Delete(int id)
         {
-            return dataUsers.Remove(dataUsers.FirstOrDefault(x => x.Id == id));
+            return DataContexManager.data.users.Remove(DataContexManager.data.users.FirstOrDefault(x => x.Id == id));
+        }
+
+        public bool CorrectTZ(string TZ)
+        {
+            if (TZ.Length != 9)
+                return false;
+            int sum = 0;
+            for (int i = 0; i < 8; i++)
+            {
+                if (TZ[i] < '0' || TZ[i] > '9')
+                    return false;
+                if (i % 2 == 0)
+                    sum += TZ[i] - '0';
+                else
+                    sum += (TZ[i] - '0') * 2 % 10 + (TZ[i] - '0') * 2 / 10 % 10;
+            }
+            if (10 - (sum % 10) == TZ[8])
+                return true;
+            return false;
         }
     }
 }

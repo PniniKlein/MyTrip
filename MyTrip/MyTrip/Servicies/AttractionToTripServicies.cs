@@ -5,37 +5,33 @@ namespace MyTrip.Servicies
 {
     public class AttractionToTripServicies
     {
-        static List<AttractionToTrip> dataAttractoinToTrip = new List<AttractionToTrip>();
-
         public List<AttractionToTrip> Get()
         {
-            return dataAttractoinToTrip;
+            return DataContexManager.data.attractionToTrips;
         }
         public AttractionToTrip GetById(int id)
         {
-            return dataAttractoinToTrip.FirstOrDefault(x => x.Id == id);
+            return DataContexManager.data.attractionToTrips.FirstOrDefault(x => x.Id == id);
         }
 
-        public ActionResult<bool> Add(AttractionToTrip attractionToTrip)
+        public bool Add(AttractionToTrip attractionToTrip)
         {
-            dataAttractoinToTrip.Add(new AttractionToTrip(attractionToTrip));
+            DataContexManager.data.attractionToTrips.Add(new AttractionToTrip(attractionToTrip));
             return true;
         }
-        public ActionResult<bool> Update(int id,AttractionToTrip attractionToTrip)
+        public bool Update(int id, AttractionToTrip attractionToTrip)
         {
-            for (int i = 0; i < dataAttractoinToTrip.Count; i++)
+            int index = DataContexManager.data.attractionToTrips.FindIndex(x => x.Id == id);
+            if (index != -1)
             {
-                if (dataAttractoinToTrip[i].Id == attractionToTrip.Id)
-                {
-                    dataAttractoinToTrip[i] = new AttractionToTrip(id,attractionToTrip);
-                    return true;
-                }
+                DataContexManager.data.attractionToTrips[index] = new AttractionToTrip(id, attractionToTrip);
+                return true;
             }
             return false;
         }
-        public ActionResult<bool> Delete(int id)
+        public bool Delete(int id)
         {
-            return dataAttractoinToTrip.Remove(dataAttractoinToTrip.FirstOrDefault(x => x.Id == id));
+            return DataContexManager.data.attractionToTrips.Remove(DataContexManager.data.attractionToTrips.FirstOrDefault(x => x.Id == id));
         }
     }
 }

@@ -5,37 +5,33 @@ namespace MyTrip.Servicies
 {
     public class OrderServicies
     {
-        static List<Order> dataOrders = new List<Order>();
-
         public List<Order> Get()
         {
-            return dataOrders;
+            return DataContexManager.data.orders;
         }
         public Order GetById(int id)
         {
-            return dataOrders.FirstOrDefault(x => x.Id == id);
+            return DataContexManager.data.orders.FirstOrDefault(x => x.Id == id);
         }
 
-        public ActionResult<bool> Add(Order order)
+        public bool Add(Order order)
         {
-            dataOrders.Add(new Order(order));
+            DataContexManager.data.orders.Add(new Order(order));
             return true;
         }
-        public ActionResult<bool> Update(int id,Order order)
+        public bool Update(int id, Order order)
         {
-            for (int i = 0; i < dataOrders.Count; i++)
+            int index = DataContexManager.data.orders.FindIndex(x => x.Id == id);
+            if (index != -1)
             {
-                if (dataOrders[i].Id == order.Id)
-                {
-                    dataOrders[i] = new Order(id, order);
-                    return true;
-                }
+                DataContexManager.data.orders[index] = new Order(id, order);
+                return true;
             }
             return false;
         }
-        public ActionResult<bool> Delete(int id)
+        public bool Delete(int id)
         {
-            return dataOrders.Remove(dataOrders.FirstOrDefault(x => x.Id == id));
+            return DataContexManager.data.orders.Remove(DataContexManager.data.orders.FirstOrDefault(x => x.Id == id));
         }
     }
 }

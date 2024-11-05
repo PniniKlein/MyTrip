@@ -8,7 +8,7 @@
         public string Place { get; set; }
         public string Description { get; set; }
         public string Type { get; set; }
-        public string[] ImgArray { get; set; }
+        public byte ImgArray { get; set; }
         public Attraction()
         {
             

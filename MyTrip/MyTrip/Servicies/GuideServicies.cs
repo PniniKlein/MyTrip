@@ -5,36 +5,55 @@ namespace MyTrip.Servicies
 {
     public class GuideServicies
     {
-        static List<Guide> dataGuides = new List<Guide>();
         public List<Guide> Get()
         {
-            return dataGuides;
+            return DataContexManager.data.guides;
         }
         public Guide GetById(int id)
         {
-            return dataGuides.FirstOrDefault(x => x.Id == id);
+            return DataContexManager.data.guides.FirstOrDefault(x => x.Id == id);
         }
 
-        public ActionResult<bool> Add(Guide guide)
+        public bool Add(Guide guide)
         {
-            dataGuides.Add(new Guide(guide));
+            if (!CorrectTZ(guide.TZ))
+                return false;
+            DataContexManager.data.guides.Add(new Guide(guide));
             return true;
         }
-        public ActionResult<bool> Update(int id, Guide guide)
+        public bool Update(int id, Guide guide)
         {
-            for (int i = 0; i < dataGuides.Count; i++)
+            if (!CorrectTZ(guide.TZ))
+                return false;
+            int index = DataContexManager.data.guides.FindIndex(x => x.Id == id);
+            if (index != -1)
             {
-                if (dataGuides[i].Id == guide.Id)
-                {
-                    dataGuides[i] = new Guide(id,guide);
-                    return true;
-                }
+                DataContexManager.data.guides[index] = new Guide(id, guide);
+                return true;
             }
             return false;
         }
-        public ActionResult<bool> Delete(int id)
+        public bool Delete(int id)
         {
-            return dataGuides.Remove(dataGuides.FirstOrDefault(x => x.Id == id));
+            return DataContexManager.data.guides.Remove(DataContexManager.data.guides.FirstOrDefault(x => x.Id == id));
+        }
+        public bool CorrectTZ(string TZ)
+        {
+            if (TZ.Length != 9)
+                return false;
+            int sum = 0;
+            for (int i = 0; i < 8; i++)
+            {
+                if (TZ[i] < '0' || TZ[i] > '9')
+                    return false;
+                if (i % 2 == 0)
+                    sum += TZ[i] - '0';
+                else
+                    sum += (TZ[i] - '0') * 2 % 10 + (TZ[i] - '0') * 2 / 10 % 10;
+            }
+            if (10 - (sum % 10) == TZ[8])
+                return true;
+            return false;
         }
     }
 }

@@ -20,9 +20,12 @@ namespace MyTrip.Controllers
 
         // GET api/<UserControllers>/5
         [HttpGet("{id}")]
-        public Guide Get(int id)
+        public ActionResult<Guide> Get(int id)
         {
-            return service.GetById(id);
+            Guide guide = service.GetById(id);
+            if (guide == null)
+                return NotFound();
+            return guide;
         }
 
         // POST api/<UserControllers>

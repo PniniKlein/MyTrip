@@ -5,37 +5,33 @@ namespace MyTrip.Servicies
 {
     public class AttractionServicies
     {
-        static List<Attraction> dataAttractions = new List<Attraction>();
-
         public List<Attraction> Get()
         {
-            return dataAttractions;
+            return DataContexManager.data.attractions;
         }
         public Attraction GetById(int id)
         {
-            return dataAttractions.FirstOrDefault(x => x.Id == id);
+            return DataContexManager.data.attractions.FirstOrDefault(x => x.Id == id);
         }
 
-        public ActionResult<bool> Add(Attraction attraction)
-        { 
-            dataAttractions.Add(new Attraction(attraction));
+        public bool Add(Attraction attraction)
+        {
+            DataContexManager.data.attractions.Add(new Attraction(attraction));
             return true;
         }
-        public ActionResult<bool> Update(int id,Attraction attraction)
+        public bool Update(int id, Attraction attraction)
         {
-            for (int i = 0; i < dataAttractions.Count; i++)
+            int index = DataContexManager.data.attractions.FindIndex(x => x.Id == id);
+            if (index != -1)
             {
-                if (dataAttractions[i].Id == attraction.Id)
-                {
-                    dataAttractions[i] = new Attraction(id,attraction);
-                    return true;
-                }
+                DataContexManager.data.attractions[index] = new Attraction(id, attraction);
+                return true;
             }
             return false;
         }
-        public ActionResult<bool> Delete(int id)
+        public bool Delete(int id)
         {
-            return dataAttractions.Remove(dataAttractions.FirstOrDefault(x => x.Id == id));
+            return DataContexManager.data.attractions.Remove(DataContexManager.data.attractions.FirstOrDefault(x => x.Id == id));
         }
     }
 }

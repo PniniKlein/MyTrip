@@ -5,37 +5,33 @@ namespace MyTrip.Servicies
 {
     public class TripServicies
     {
-        static List<Trip> dataTrips = new List<Trip>();
-
         public List<Trip> Get()
         {
-            return dataTrips;
+            return DataContexManager.data.trips;
         }
         public Trip GetById(int id)
         {
-            return dataTrips.FirstOrDefault(x => x.Id == id);
+            return DataContexManager.data.trips.FirstOrDefault(x => x.Id == id);
         }
 
-        public ActionResult<bool> Add(Trip trip)
+        public bool Add(Trip trip)
         {
-            dataTrips.Add(new Trip(trip));
+            DataContexManager.data.trips.Add(new Trip(trip));
             return true;
         }
-        public ActionResult<bool> Update(int id,Trip trip)
+        public bool Update(int id, Trip trip)
         {
-            for (int i = 0; i < dataTrips.Count; i++)
+            int index = DataContexManager.data.trips.FindIndex(x => x.Id == id);
+            if (index != -1)
             {
-                if (dataTrips[i].Id == trip.Id)
-                {
-                    dataTrips[i] = new Trip(id,trip);
-                    return true;
-                }
+                DataContexManager.data.trips[index] = new Trip(id, trip);
+                return true;
             }
             return false;
         }
-        public ActionResult<bool> Delete(int id)
+        public bool Delete(int id)
         {
-            return dataTrips.Remove(dataTrips.FirstOrDefault(x => x.Id == id));
+            return DataContexManager.data.trips.Remove(DataContexManager.data.trips.FirstOrDefault(x => x.Id == id));
         }
     }
 }
