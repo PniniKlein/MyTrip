@@ -13,7 +13,7 @@ namespace MyTrip.Controllers
         UserServicies service = new UserServicies();
         // GET: api/<UserControllers>
         [HttpGet]
-        public List<User> Get()
+        public ActionResult<IEnumerable<User>> Get()
         {
             return service.Get();
         }
@@ -25,7 +25,7 @@ namespace MyTrip.Controllers
             User user = service.GetById(id);
             if (user == null)
                 return NotFound();
-            return user;
+            return Ok(user);
         }
 
         // POST api/<UserControllers>

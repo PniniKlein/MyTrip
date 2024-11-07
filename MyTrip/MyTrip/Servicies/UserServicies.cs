@@ -52,7 +52,7 @@ namespace MyTrip.Servicies
                 else
                     sum += (TZ[i] - '0') * 2 % 10 + (TZ[i] - '0') * 2 / 10 % 10;
             }
-            if (10 - (sum % 10) == TZ[8])
+            if (10 - (sum % 10) == TZ[8]-'0')
                 return true;
             return false;
         }

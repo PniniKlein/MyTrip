@@ -13,7 +13,7 @@ namespace MyTrip.Controllers
         GuideServicies service = new GuideServicies();
         // GET: api/<UserControllers>
         [HttpGet]
-        public List<Guide> Get()
+        public ActionResult<IEnumerable<Guide>> Get()
         {
             return service.Get();
         }
