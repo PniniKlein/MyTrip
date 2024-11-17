@@ -5,37 +5,50 @@ namespace MyTrip.Servicies
 {
     public class UserServicies
     {
+        private readonly IDataContex _dateContex;
+        public UserServicies(IDataContex dateContex)
+        {
+            _dateContex = dateContex;
+        }
         public List<User> Get()
         {
-            return DataContexManager.data.users;
+            _dateContex.LoadData();
+            return _dateContex.Users;
         }
         public User GetById(int id)
         {
-            return DataContexManager.data.users.FirstOrDefault(x => x.Id == id);
+            _dateContex.LoadData();
+            return _dateContex.Users.FirstOrDefault(x => x.Id == id);
         }
 
         public bool Add(User user)
         {
             if (!CorrectTZ(user.TZ))
                 return false;
-            DataContexManager.data.users.Add(new User(user));
-            return true;
+            _dateContex.LoadData();
+            _dateContex.Users.Add(new User(user));
+            return _dateContex.SaveData();
         }
         public bool Update(int id, User user)
         {
             if (!CorrectTZ(user.TZ))
                 return false;
-            int index = DataContexManager.data.users.FindIndex(x => x.Id == id);
+            _dateContex.LoadData();
+            int index = _dateContex.Users.FindIndex(x => x.Id == id);
             if (index != -1)
             {
-                DataContexManager.data.users[index] = new User(id, user);
-                return true;
+                _dateContex.Users[index] = new User(id, user);
+                return _dateContex.SaveData();
             }
             return false;
         }
         public bool Delete(int id)
         {
-            return DataContexManager.data.users.Remove(DataContexManager.data.users.FirstOrDefault(x => x.Id == id));
+            _dateContex.LoadData();
+            bool succeed=_dateContex.Users.Remove(_dateContex.Users.FirstOrDefault(x => x.Id == id));
+            if(succeed)
+              return _dateContex.SaveData();
+            return false;
         }
 
         public bool CorrectTZ(string TZ)

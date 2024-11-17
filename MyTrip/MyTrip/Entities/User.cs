@@ -4,7 +4,8 @@ namespace MyTrip.Entities
 {
     public class User
     {
-        static int count = 1;
+        public static int count = 1;
+
         public int Id { get; private set; }
         public string TZ { get; set; }
         public string Name { get; set; }
@@ -16,7 +17,8 @@ namespace MyTrip.Entities
         public DateTime RegistrationDate { get; set; }
         public int NumOfPerson { get; set; }
         public User()
-        {        
+        {
+            Id = count++;
         }
 
         public User(int id,User u)

@@ -17,7 +17,7 @@ namespace UnitTest
         {
             var controller = new UserControllers();
             var result = controller.Get();
-            Assert.IsType <ActionResult<IEnumerable<User>>>(result);
+            Assert.IsType<ActionResult<IEnumerable<User>>>(result);
             //לא עובד
             //Assert.IsType<List<User>>(result);
         }

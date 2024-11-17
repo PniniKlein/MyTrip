@@ -10,43 +10,47 @@ namespace MyTrip.Controllers
     [ApiController]
     public class UserControllers : ControllerBase
     {
-        UserServicies service = new UserServicies();
+        private readonly UserServicies _userServicies;
+        public UserControllers(UserServicies userServicies)
+        {
+            _userServicies = userServicies;
+        }
         // GET: api/<UserControllers>
         [HttpGet]
         public ActionResult<IEnumerable<User>> Get()
         {
-            return service.Get();
+            return _userServicies.Get();
         }
 
         // GET api/<UserControllers>/5
         [HttpGet("{id}")]
         public ActionResult<User> Get(int id)
         {
-            User user = service.GetById(id);
+            User user = _userServicies.GetById(id);
             if (user == null)
                 return NotFound();
-            return Ok(user);
+            return user;
         }
 
         // POST api/<UserControllers>
         [HttpPost]
         public ActionResult<bool> Post([FromBody] User user)
         {
-            return service.Add(user);
+            return _userServicies.Add(user);
         }
 
         // PUT api/<UserControllers>/5
         [HttpPut("{id}")]
         public ActionResult<bool> Put(int id, [FromBody] User user)
         {
-            return service.Update(id, user);
+            return _userServicies.Update(id, user);
         }
 
         // DELETE api/<UserControllers>/5
         [HttpDelete("{id}")]
         public ActionResult<bool> Delete(int id)
         {
-            return service.Delete(id);
+            return _userServicies.Delete(id);
         }
     }
 }
