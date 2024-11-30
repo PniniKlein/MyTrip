@@ -1,0 +1,13 @@
+
+    [
+        {
+            "Id": 1,
+            "TripCode": 2,
+            "AttractionCode": 1
+        },
+        {
+            "Id": 2,
+            "TripCode": 1,
+            "AttractionCode": 1
+        }
+    ]

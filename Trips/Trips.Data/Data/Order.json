@@ -1,0 +1,23 @@
+
+    [
+        {
+            "Id": 1,
+            "TripCode": 2,
+            "UserCode": 2,
+            "NumOfTickets": 5,
+            "OrderDate": "2024-09-12T17:19:24.574Z",
+            "Price": 1000,
+            "Account": "33333",
+            "IsPayment": true
+        },
+        {
+            "Id": 2,
+            "TripCode" :1,
+            "UserCode": 1,
+            "NumOfTickets": 5,
+            "OrderDate": "2024-11-12T17:19:24.574Z",
+            "Price": 1200,
+            "Account": "112233",
+            "IsPayment": false
+        }
+    ]

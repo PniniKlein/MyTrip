@@ -1,0 +1,28 @@
+[
+    {
+        "Id": 1,
+        "DateOfStart": "2024-10-12T17:19:24.574Z",
+        "DateOfEnd": "2024-10-15T17:19:24.574Z",
+        "NumOfNights": 5,
+        "Country": "France",
+        "ItemNeeded": "Money",
+        "TypeOfTrip": "Family",
+        "PlaceMeeting": "El Al",
+        "GuideCode": 2,
+        "Price": 250.0,
+        "IncludeSleepingAndMeal": true
+    },
+    {
+        "Id": 2,
+        "DateOfStart": "2024-11-12T17:19:24.574Z",
+        "DateOfEnd": "2024-11-15T17:19:24.574Z",
+        "NumOfNights": 3,
+        "Country": "Ysrael",
+        "ItemNeeded": "nothing",
+        "TypeOfTrip": "Adult",
+        "PlaceMeeting": "Bney Brak",
+        "GuideCode": 1,
+        "Price": 200.0,
+        "IncludeSleepingAndMeal": true
+    }
+]

@@ -1,0 +1,17 @@
+
+ [
+        {
+            "Id": 1,
+            "Name": "Shalom",
+            "Place": "Petach Tkva",
+            "Description": "Amazing",
+            "Type": "family"
+        },
+        {
+            "Id": 2,
+            "Name": "Shalom",
+            "Place": "Jerusalem",
+            "Description": "Amazing",
+            "Type": "family"
+        }
+ ]
