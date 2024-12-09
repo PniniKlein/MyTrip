@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Trips.Core.Entities;
 
 namespace Trips.Core.IService
 {
-    public interface Iservice<T>
+    public interface IGuideService
     {
-        List<T> Get();
-        T GetById(int id);
-        bool Add(T user);
-        bool Update(int id, T user);
+        List<Guide> Get();
+        Guide GetById(int id);
+        Guide Add(Guide guide);
+        Guide Update(int id, Guide guide);
         bool Delete(int id);
     }
 }

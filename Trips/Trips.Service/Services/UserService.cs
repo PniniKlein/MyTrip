@@ -4,7 +4,7 @@ using Trips.Core.IService;
 
 namespace Trips.Service.Servise
 {
-    public class UserService : Iservice<User>
+    public class UserService : IUserService
     {
         readonly IRepository<User> _iRepository;
         public UserService(IRepository<User> iRepository)
@@ -15,22 +15,24 @@ namespace Trips.Service.Servise
         {
             return _iRepository.Get();
         }
-        public User GetById(int id)
+        public User? GetById(int id)
         {
             return _iRepository.GetById(id);
         }
 
-        public bool Add(User user)
+        public User Add(User user)
         {
             if (!CorrectTZ(user.TZ))
-                return false;
-            return _iRepository.Add(user);
+                return null;
+            _iRepository.Add(user);
+            return user;
         }
-        public bool Update(int id, User user)
+        public User Update(int id, User user)
         {
             if (!CorrectTZ(user.TZ))
-                return false;
-            return _iRepository.Update(id, user);
+                return null;
+            _iRepository.Update(id, user);
+            return user;
         }
         public bool Delete(int id)
         {

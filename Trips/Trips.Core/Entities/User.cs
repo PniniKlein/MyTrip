@@ -1,9 +1,10 @@
-﻿namespace Trips.Core.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Trips.Core.Entities
 {
     public class User
     {
-        public static int count = 1;
-
+        [Key]
         public int Id { get; private set; }
         public string TZ { get; set; }
         public string Name { get; set; }
@@ -16,25 +17,11 @@
         public int NumOfPerson { get; set; }
         public User()
         {
-            Id = count++;
-        }
-
-        public User(int id, User u)
-        {
-            Id = id;
-            TZ = u.TZ;
-            Name = u.Name;
-            Age = u.Age;
-            City = u.City;
-            Street = u.Street;
-            Phone = u.Phone;
-            Email = u.Email;
-            RegistrationDate = u.RegistrationDate;
-            NumOfPerson = u.NumOfPerson;
+ 
         }
         public User(User u)
         {
-            Id = count++;
+            Id = u.Id;
             TZ = u.TZ;
             Name = u.Name;
             Age = u.Age;
@@ -45,5 +32,17 @@
             RegistrationDate = u.RegistrationDate;
             NumOfPerson = u.NumOfPerson;
         }
+        //public void Copy(User user)
+        //{
+        //    TZ ??= user.TZ;
+        //    Name ??= user.Name;
+        //    Age = user.Age!=Age ? user.Age : Age;
+        //    City ??= user.City;
+        //    Street ??= user.Street;
+        //    Phone ??= user.Phone;
+        //    Email ??= user.Email;
+        //    RegistrationDate = user.RegistrationDate!= RegistrationDate? user.RegistrationDate:RegistrationDate;
+        //    NumOfPerson = user.NumOfPerson != NumOfPerson ? user.NumOfPerson : NumOfPerson;
+        //}
     }
 }

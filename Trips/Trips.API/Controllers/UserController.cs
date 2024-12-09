@@ -10,8 +10,8 @@ namespace Trips.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        readonly Iservice<User> _iService;
-        public UserController(Iservice<User> iservice)
+        readonly IUserService _iService;
+        public UserController(IUserService iservice)
         {
             _iService = iservice;
         }
@@ -34,14 +34,14 @@ namespace Trips.API.Controllers
 
         // POST api/<UserControllers>
         [HttpPost]
-        public ActionResult<bool> Post([FromBody] User user)
+        public ActionResult<User> Post([FromBody] User user)
         {
             return _iService.Add(user);
         }
 
         // PUT api/<UserControllers>/5
         [HttpPut("{id}")]
-        public ActionResult<bool> Put(int id, [FromBody] User user)
+        public ActionResult<User> Put(int id, [FromBody] User user)
         {
             return _iService.Update(id, user);
         }

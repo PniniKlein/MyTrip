@@ -9,7 +9,7 @@ using Trips.Core.IService;
 
 namespace Trips.Service.Servises
 {
-    public class OrderService : Iservice<Order>
+    public class OrderService : IOrderService
     {
         readonly IRepository<Order> _iRepository;
         public OrderService(IRepository<Order> iRepository)
@@ -20,18 +20,20 @@ namespace Trips.Service.Servises
         {
             return _iRepository.Get();
         }
-        public Order GetById(int id)
+        public Order? GetById(int id)
         {
             return _iRepository.GetById(id);
         }
 
-        public bool Add(Order order)
+        public Order Add(Order order)
         {
-            return _iRepository.Add(order);
+            _iRepository.Add(order);
+            return order;
         }
-        public bool Update(int id, Order order)
+        public Order Update(int id, Order order)
         {
-            return _iRepository.Update(id, order);
+            _iRepository.Update(id, order);
+            return order;
         }
         public bool Delete(int id)
         {

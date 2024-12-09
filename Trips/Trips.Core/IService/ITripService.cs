@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Trips.Core.Entities;
 
-namespace Trips.Core.IRepository
+namespace Trips.Core.IService
 {
-    public interface IRepository<T>
+    public interface ITripService
     {
-        List<T> Get();
-        T GetById(int id);
-        T Add(T user);
-        T Update(int id, T user);
+        List<Trip> Get();
+        Trip GetById(int id);
+        Trip Add(Trip trip);
+        Trip Update(int id, Trip trip);
         bool Delete(int id);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace Trips.Core.Entities
 {
     public class Attraction
     {
-        static int count = 1;
+        [Key]
         public int Id { get; private set; }
         public string Name { get; set; }
         public string Place { get; set; }
@@ -20,19 +21,17 @@ namespace Trips.Core.Entities
 
         }
 
-        public Attraction(int id, Attraction a)
-        {
-            Id = id;
-            Name = a.Name;
-            Place = a.Place;
-            Description = a.Description;
-            Type = a.Type;
-            //ImgArray = a.ImgArray;
-        }
+        //public void Copy(Attraction my, Attraction t)
+        //{
+        //    my.Name ??= t.Name;
+        //    my.Place ??= t.Place;
+        //    my.Description ??= t.Description;
+        //    my.Type ??= t.Type;
+        //}
 
         public Attraction(Attraction a)
         {
-            Id = count++;
+            Id = a.Id;
             Name = a.Name;
             Place = a.Place;
             Description = a.Description;

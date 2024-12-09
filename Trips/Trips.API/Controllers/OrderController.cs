@@ -10,8 +10,8 @@ namespace Trips.API.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        readonly Iservice<Order> _iService;
-        public OrderController(Iservice<Order> iservice)
+        readonly IOrderService _iService;
+        public OrderController(IOrderService iservice)
         {
             _iService = iservice;
         }
@@ -34,14 +34,14 @@ namespace Trips.API.Controllers
 
         // POST api/<UserControllers>
         [HttpPost]
-        public ActionResult<bool> Post([FromBody] Order order)
+        public ActionResult<Order> Post([FromBody] Order order)
         {
             return _iService.Add(order);
         }
 
         // PUT api/<UserControllers>/5
         [HttpPut("{id}")]
-        public ActionResult<bool> Put(int id, [FromBody] Order order)
+        public ActionResult<Order> Put(int id, [FromBody] Order order)
         {
             return _iService.Update(id, order);
         }

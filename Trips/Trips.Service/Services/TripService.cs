@@ -9,7 +9,7 @@ using Trips.Core.IService;
 
 namespace Trips.Service.Servises
 {
-    public class TripService : Iservice<Trip>
+    public class TripService : ITripService
     {
         readonly IRepository<Trip> _iRepository;
         public TripService(IRepository<Trip> iRepository)
@@ -20,18 +20,20 @@ namespace Trips.Service.Servises
         {
             return _iRepository.Get();
         }
-        public Trip GetById(int id)
+        public Trip? GetById(int id)
         {
             return _iRepository.GetById(id);
         }
 
-        public bool Add(Trip trip)
+        public Trip Add(Trip trip)
         {
-            return _iRepository.Add(trip);
+            _iRepository.Add(trip);
+            return trip;
         }
-        public bool Update(int id, Trip trip)
+        public Trip Update(int id, Trip trip)
         {
-            return _iRepository.Update(id, trip);
+            _iRepository.Update(id, trip);
+            return trip;
         }
         public bool Delete(int id)
         {

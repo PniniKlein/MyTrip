@@ -10,8 +10,8 @@ namespace Trips.API.Controllers
     [ApiController]
     public class AttractionToTripController : ControllerBase
     {
-        readonly Iservice<AttractionToTrip> _iService;
-        public AttractionToTripController(Iservice<AttractionToTrip> iservice)
+        readonly IAttractionToTripService _iService;
+        public AttractionToTripController(IAttractionToTripService iservice)
         {
             _iService = iservice;
         }
@@ -34,14 +34,14 @@ namespace Trips.API.Controllers
 
         // POST api/<UserControllers>
         [HttpPost]
-        public ActionResult<bool> Post([FromBody] AttractionToTrip attractionToTrip)
+        public ActionResult<AttractionToTrip> Post([FromBody] AttractionToTrip attractionToTrip)
         {
             return _iService.Add(attractionToTrip);
         }
 
         // PUT api/<UserControllers>/5
         [HttpPut("{id}")]
-        public ActionResult<bool> Put(int id, [FromBody] AttractionToTrip attractionToTrip)
+        public ActionResult<AttractionToTrip> Put(int id, [FromBody] AttractionToTrip attractionToTrip)
         {
             return _iService.Update(id, attractionToTrip);
         }

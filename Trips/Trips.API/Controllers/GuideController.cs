@@ -10,8 +10,8 @@ namespace Trips.API.Controllers
     [ApiController]
     public class GuideController : ControllerBase
     {
-        readonly Iservice<Guide> _iService;
-        public GuideController(Iservice<Guide> iservice)
+        readonly IGuideService _iService;
+        public GuideController(IGuideService iservice)
         {
             _iService = iservice;
         }
@@ -34,14 +34,14 @@ namespace Trips.API.Controllers
 
         // POST api/<UserControllers>
         [HttpPost]
-        public ActionResult<bool> Post([FromBody] Guide guide)
+        public ActionResult<Guide> Post([FromBody] Guide guide)
         {
             return _iService.Add(guide);
         }
 
         // PUT api/<UserControllers>/5
         [HttpPut("{id}")]
-        public ActionResult<bool> Put(int id, [FromBody] Guide guide)
+        public ActionResult<Guide> Put(int id, [FromBody] Guide guide)
         {
             return _iService.Update(id, guide);
         }
