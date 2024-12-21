@@ -24,14 +24,14 @@ namespace Trips.Service.Servise
         {
             if (!CorrectTZ(user.TZ))
                 return null;
-            _iRepository.Add(user);
+            user=_iRepository.Add(user);
             return user;
         }
         public User Update(int id, User user)
         {
             if (!CorrectTZ(user.TZ))
                 return null;
-            _iRepository.Update(id, user);
+            user=_iRepository.Update(id, user);
             return user;
         }
         public bool Delete(int id)

@@ -36,14 +36,20 @@ namespace Trips.API.Controllers
         [HttpPost]
         public ActionResult<User> Post([FromBody] User user)
         {
-            return _iService.Add(user);
+            user= _iService.Add(user);
+            if (user == null)
+                return NotFound();
+            return user;
         }
 
         // PUT api/<UserControllers>/5
         [HttpPut("{id}")]
         public ActionResult<User> Put(int id, [FromBody] User user)
         {
-            return _iService.Update(id, user);
+            user= _iService.Update(id, user);
+            if (user == null)
+                return NotFound();
+            return user;
         }
 
         // DELETE api/<UserControllers>/5

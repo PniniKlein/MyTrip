@@ -27,12 +27,12 @@ namespace Trips.Service.Servises
 
         public AttractionToTrip Add(AttractionToTrip attractionToTrip)
         {
-             _iRepository.Add(attractionToTrip);
+            attractionToTrip= _iRepository.Add(attractionToTrip);
             return attractionToTrip;
         }
         public AttractionToTrip Update(int id, AttractionToTrip attractionToTrip)
         {
-            _iRepository.Update(id, attractionToTrip);
+            attractionToTrip = _iRepository.Update(id, attractionToTrip);
             return attractionToTrip;
         }
         public bool Delete(int id)

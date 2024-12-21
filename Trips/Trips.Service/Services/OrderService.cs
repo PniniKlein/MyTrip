@@ -27,12 +27,12 @@ namespace Trips.Service.Servises
 
         public Order Add(Order order)
         {
-            _iRepository.Add(order);
+           order= _iRepository.Add(order);
             return order;
         }
         public Order Update(int id, Order order)
         {
-            _iRepository.Update(id, order);
+            order = _iRepository.Update(id, order);
             return order;
         }
         public bool Delete(int id)

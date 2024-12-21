@@ -15,11 +15,11 @@ namespace Trips.Data.Repository
     public class Repository<T> : IRepository<T> where T : class
     {
         private readonly DbSet<T> _dataSet;
-        private readonly IRepositoryManager _repositoryManager;
+        private readonly IRepositoryManager _iManager;
         public Repository(DataContext dataContex, IRepositoryManager repositoryManager)
         {
             _dataSet = dataContex.Set<T>();
-            _repositoryManager = repositoryManager;
+            _iManager = repositoryManager;
         }
         public List<T> Get()
         {
@@ -33,7 +33,7 @@ namespace Trips.Data.Repository
         public T Add(T t)
         {
             _dataSet.Add(t);
-            _repositoryManager.Save();
+            _iManager.Save();
             return t;
         }
         public bool Delete(int id)
@@ -42,31 +42,32 @@ namespace Trips.Data.Repository
             if (find != null)
             {
                 _dataSet.Remove(find);
-                _repositoryManager.Save();
+                _iManager.Save();
                 return true;
             }
             return false;
         }
 
-        public T Update(int id, T entity)
+        public T Update(int id, T updatedEntity)
         {
             var existingEntity = _dataSet.Find(id);
             if (existingEntity == null)
             {
                 return null;
             }
-
-            var properties = typeof(T).GetFields(BindingFlags.NonPublic | BindingFlags.Public)
-             .Where(prop => prop.Name != "Id");
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                                      .Where(prop => prop.Name != "Id");
 
             foreach (var property in properties)
             {
-                var updatedValue = property.GetValue(entity);
-
-                property.SetValue(existingEntity, updatedValue);
+                var updatedValue = property.GetValue(updatedEntity);
+                if (updatedValue != null)
+                {
+                    property.SetValue(existingEntity, updatedValue);
+                }
             }
-            _repositoryManager.Save();
-            return entity;
+            _iManager.Save();
+            return existingEntity;
         }
     }
 }

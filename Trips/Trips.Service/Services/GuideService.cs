@@ -29,14 +29,14 @@ namespace Trips.Service.Servises
         {
             if (!CorrectTZ(guide.TZ))
                 return null;
-            _iRepository.Add(guide);
+            guide=_iRepository.Add(guide);
             return guide;
         }
         public Guide Update(int id, Guide guide)
         {
             if (!CorrectTZ(guide.TZ))
                 return null;
-            _iRepository.Update(id, guide);
+            guide = _iRepository.Update(id, guide);
             return guide;
         }
         public bool Delete(int id)
