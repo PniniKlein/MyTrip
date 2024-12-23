@@ -17,13 +17,17 @@ builder.Services.AddDbContext<DataContext>(option =>
     option.UseSqlServer("Data Source = DESKTOP-BBPQVA2\\SQLEXPRESS; Initial Catalog = DBTrips; Integrated Security = true; ");
 });
 builder.Services.AddScoped<IAttractionService,AttractionService>();
-builder.Services.AddScoped<IAttractionToTripService, AttractionToTripService>();
 builder.Services.AddScoped<IGuideService, GuideService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<ITripService, TripService>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IAttractionRepository,AttractionRepository>();
+builder.Services.AddScoped<IGuideRepository,GuideRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<ITripRepository, TripRepository>();
+builder.Services.AddScoped<IUserRepository,UserRepository>();
 builder.Services.AddScoped<IRepositoryManager,RepositoryManager>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

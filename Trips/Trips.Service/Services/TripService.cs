@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Trips.Core.Entities;
+using Trips.Core.IRepositories;
 using Trips.Core.IRepository;
 using Trips.Core.IService;
 
@@ -11,14 +12,18 @@ namespace Trips.Service.Servises
 {
     public class TripService : ITripService
     {
-        readonly IRepository<Trip> _iRepository;
-        public TripService(IRepository<Trip> iRepository)
+        readonly ITripRepository _iRepository;
+        public TripService(ITripRepository iRepository)
         {
             _iRepository = iRepository;
         }
         public List<Trip> Get()
         {
             return _iRepository.Get();
+        }
+        public List<Trip> GetAll()
+        {
+            return _iRepository.GetAll();
         }
         public Trip? GetById(int id)
         {

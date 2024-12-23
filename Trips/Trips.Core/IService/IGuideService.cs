@@ -10,6 +10,7 @@ namespace Trips.Core.IService
     public interface IGuideService
     {
         List<Guide> Get();
+        List<Guide> GetAll();
         Guide GetById(int id);
         Guide Add(Guide guide);
         Guide Update(int id, Guide guide);

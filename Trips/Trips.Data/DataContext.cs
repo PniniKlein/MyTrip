@@ -9,7 +9,6 @@ namespace Trips.Data
     public class DataContext:DbContext
     {
         public DbSet<Attraction> attractions { get; set; }
-        public DbSet<AttractionToTrip> attractionToTrips { get; set; }
         public DbSet<Guide> guides { get; set; }
         public DbSet<Order> orders { get; set; }
         public DbSet<Trip> trips { get; set; }

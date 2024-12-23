@@ -15,6 +15,7 @@ namespace Trips.Core.Entities
         public string Place { get; set; }
         public string Description { get; set; }
         public string Type { get; set; }
+        public List<Trip> trips { get; set; }
         //public byte ImgArray { get; set; }
         public Attraction()
         {

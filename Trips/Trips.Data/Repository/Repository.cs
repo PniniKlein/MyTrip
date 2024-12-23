@@ -14,8 +14,8 @@ namespace Trips.Data.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly DbSet<T> _dataSet;
-        private readonly IRepositoryManager _iManager;
+        protected readonly DbSet<T> _dataSet;
+        protected readonly IRepositoryManager _iManager;
         public Repository(DataContext dataContex, IRepositoryManager repositoryManager)
         {
             _dataSet = dataContex.Set<T>();

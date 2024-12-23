@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Trips.Core.Entities;
+using Trips.Core.IRepositories;
 using Trips.Core.IRepository;
 using Trips.Core.IService;
 
@@ -11,14 +12,18 @@ namespace Trips.Service.Servises
 {
     public class GuideService : IGuideService
     {
-        readonly IRepository<Guide> _iRepository;
-        public GuideService(IRepository<Guide> iRepository)
+        readonly IGuideRepository _iRepository;
+        public GuideService(IGuideRepository iRepository)
         {
             _iRepository = iRepository;
         }
         public List<Guide> Get()
         {
             return _iRepository.Get();
+        }
+        public List<Guide> GetAll()
+        {
+            return _iRepository.GetAll();
         }
         public Guide? GetById(int id)
         {

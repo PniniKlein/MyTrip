@@ -10,6 +10,7 @@ namespace Trips.Core.IService
     public interface IOrderService
     {
         List<Order> Get();
+        List<Order> GetAll();
         Order GetById(int id);
         Order Add(Order order);
         Order Update(int id, Order order);

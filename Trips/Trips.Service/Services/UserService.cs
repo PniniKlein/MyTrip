@@ -1,4 +1,5 @@
 ﻿using Trips.Core.Entities;
+using Trips.Core.IRepositories;
 using Trips.Core.IRepository;
 using Trips.Core.IService;
 
@@ -6,14 +7,18 @@ namespace Trips.Service.Servise
 {
     public class UserService : IUserService
     {
-        readonly IRepository<User> _iRepository;
-        public UserService(IRepository<User> iRepository)
+        readonly IUserRepository _iRepository;
+        public UserService(IUserRepository iRepository)
         {
             _iRepository = iRepository;
         }
         public List<User> Get()
         {
             return _iRepository.Get();
+        }
+        public List<User> GetAll()
+        {
+            return _iRepository.GetAll();
         }
         public User? GetById(int id)
         {

@@ -22,6 +22,7 @@ namespace Trips.Core.Entities
         public string Email { get; set; }
         public int Experience { get; set; }
         public int SalaryToDay { get; set; }
+        public List<Trip> trips { get; set; }
         public Guide()
         {
 

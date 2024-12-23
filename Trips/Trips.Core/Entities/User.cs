@@ -15,6 +15,7 @@ namespace Trips.Core.Entities
         public string Email { get; set; }
         public DateTime RegistrationDate { get; set; }
         public int NumOfPerson { get; set; }
+        public List<Order> orders { get; set; }
         public User()
         {
  

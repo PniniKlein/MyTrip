@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Trips.Core.Entities;
+using Trips.Core.IRepositories;
 using Trips.Core.IRepository;
 using Trips.Core.IService;
 
@@ -11,14 +12,18 @@ namespace Trips.Service.Servises
 {
     public class OrderService : IOrderService
     {
-        readonly IRepository<Order> _iRepository;
-        public OrderService(IRepository<Order> iRepository)
+        readonly IOrderRepository _iRepository;
+        public OrderService(IOrderRepository iRepository)
         {
             _iRepository = iRepository;
         }
         public List<Order> Get()
         {
             return _iRepository.Get();
+        }
+        public List<Order> GetAll()
+        {
+            return _iRepository.GetAll();
         }
         public Order? GetById(int id)
         {

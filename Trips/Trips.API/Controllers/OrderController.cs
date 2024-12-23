@@ -21,7 +21,11 @@ namespace Trips.API.Controllers
         {
             return _iService.Get();
         }
-
+        [HttpGet("GetAll")]
+        public ActionResult<IEnumerable<Order>> GetAll()
+        {
+            return _iService.GetAll();
+        }
         // GET api/<UserControllers>/5
         [HttpGet("{id}")]
         public ActionResult<Order> Get(int id)

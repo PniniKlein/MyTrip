@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Trips.Data;
 
@@ -11,9 +12,10 @@ using Trips.Data;
 namespace Trips.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20241222160228_second-Relationships")]
+    partial class secondRelationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -283,7 +285,7 @@ namespace Trips.Data.Migrations
             modelBuilder.Entity("Trips.Core.Entities.Trip", b =>
                 {
                     b.HasOne("Trips.Core.Entities.Guide", "Guide")
-                        .WithMany("trips")
+                        .WithMany("Trips")
                         .HasForeignKey("GuideId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -293,7 +295,7 @@ namespace Trips.Data.Migrations
 
             modelBuilder.Entity("Trips.Core.Entities.Guide", b =>
                 {
-                    b.Navigation("trips");
+                    b.Navigation("Trips");
                 });
 
             modelBuilder.Entity("Trips.Core.Entities.Trip", b =>

@@ -10,6 +10,7 @@ namespace Trips.Core.IService
     public interface IUserService
     {
         List<User> Get();
+        List<User> GetAll();
         User GetById(int id);
         User Add(User user);
         User Update(int id, User user);

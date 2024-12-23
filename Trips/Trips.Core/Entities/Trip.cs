@@ -18,9 +18,12 @@ namespace Trips.Core.Entities
         public string ItemNeeded { get; set; }
         public string TypeOfTrip { get; set; }
         public string PlaceMeeting { get; set; }
-        public int GuideCode { get; set; }
+        public int GuideId { get; set; }
+        public Guide Guide { get; set; }
         public double Price { get; set; }
         public bool IncludeSleepingAndMeal { get; set; }
+        public List<Attraction> attractions { get; set; }
+        public List<Order> orders { get; set; }
         public Trip()
         {
 
@@ -35,7 +38,7 @@ namespace Trips.Core.Entities
             ItemNeeded = t.ItemNeeded;
             TypeOfTrip = t.TypeOfTrip;
             PlaceMeeting = t.PlaceMeeting;
-            GuideCode = t.GuideCode;
+            GuideId = t.GuideId;
             Price = t.Price;
             IncludeSleepingAndMeal = t.IncludeSleepingAndMeal;
         }

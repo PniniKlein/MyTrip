@@ -11,8 +11,10 @@ namespace Trips.Core.Entities
     {
         [Key]
         public int Id { get; private set; }
-        public int TripCode { get; set; }
-        public int UserCode { get; set; }
+        public int TripId { get; set; }
+        public Trip Trip { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
         public int NumOfTickets { get; set; }
         public DateTime OrderDate { get; set; }
         public double Price { get; set; }
@@ -25,8 +27,8 @@ namespace Trips.Core.Entities
         public Order(Order o)
         {
             Id = o.Id;
-            TripCode = o.TripCode;
-            UserCode = o.UserCode;
+            TripId = o.TripId;
+            UserId = o.UserId;
             NumOfTickets = o.NumOfTickets;
             OrderDate = o.OrderDate;
             Price = o.Price;
