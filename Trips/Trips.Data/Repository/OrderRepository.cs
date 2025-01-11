@@ -11,7 +11,7 @@ namespace Trips.Data.Repository
 {
     public class OrderRepository : Repository<Order>, IOrderRepository
     {
-        public OrderRepository(DataContext dataContex, IRepositoryManager repositoryManager) : base(dataContex, repositoryManager)
+        public OrderRepository(DataContext dataContex) : base(dataContex)
         {
         }
         public List<Order> GetAll()

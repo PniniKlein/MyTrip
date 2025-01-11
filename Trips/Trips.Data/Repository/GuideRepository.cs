@@ -11,7 +11,7 @@ namespace Trips.Data.Repository
 {
     public class GuideRepository : Repository<Guide>, IGuideRepository
     {
-        public GuideRepository(DataContext dataContex, IRepositoryManager repositoryManager) : base(dataContex, repositoryManager)
+        public GuideRepository(DataContext dataContex) : base(dataContex)
         {
         }
         public List<Guide> GetAll()

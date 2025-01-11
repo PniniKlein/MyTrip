@@ -12,37 +12,44 @@ namespace Trips.Service.Servises
 {
     public class OrderService : IOrderService
     {
-        readonly IOrderRepository _iRepository;
-        public OrderService(IOrderRepository iRepository)
+        readonly IRepositoryManager _iManager;
+        public OrderService(IRepositoryManager iManager)
         {
-            _iRepository = iRepository;
+            IRepositoryManager _iManager;
         }
         public List<Order> Get()
         {
-            return _iRepository.Get();
+            return _iManager.IOrderRep.Get();
         }
         public List<Order> GetAll()
         {
-            return _iRepository.GetAll();
+            return _iManager.IOrderRep.GetAll();
         }
         public Order? GetById(int id)
         {
-            return _iRepository.GetById(id);
+            return _iManager.IOrderRep.GetById(id);
         }
 
         public Order Add(Order order)
         {
-           order= _iRepository.Add(order);
+           order= _iManager.IOrderRep.Add(order);
+            if (order != null)
+                _iManager.Save();
             return order;
         }
         public Order Update(int id, Order order)
         {
-            order = _iRepository.Update(id, order);
+            order = _iManager.IOrderRep.Update(id, order);
+            if (order != null)
+                _iManager.Save();
             return order;
         }
         public bool Delete(int id)
         {
-            return _iRepository.Delete(id);
+           bool flag=_iManager.IOrderRep.Delete(id);
+            if(flag)
+                _iManager.Save();
+            return flag;
         }
     }
 }

@@ -12,8 +12,9 @@ namespace Trips.Data.Repository
 {
     public class AttractionRepository : Repository<Attraction>, IAttractionRepository
     {
-        public AttractionRepository(DataContext dataContex, IRepositoryManager repositoryManager) : base(dataContex, repositoryManager)
+        public AttractionRepository(DataContext dataContex) : base(dataContex)
         {
+
         }
         public List<Attraction> GetAll()
         {

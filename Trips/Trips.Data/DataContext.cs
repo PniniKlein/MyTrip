@@ -9,10 +9,10 @@ namespace Trips.Data
     public class DataContext:DbContext
     {
         public DbSet<Attraction> attractions { get; set; }
-        public DbSet<Guide> guides { get; set; }
-        public DbSet<Order> orders { get; set; }
-        public DbSet<Trip> trips { get; set; }
-        public DbSet<User> users { get; set; }
+        public DbSet<Guide> Guides { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Trip> Trips { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options):base(options)
         {

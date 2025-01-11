@@ -16,10 +16,9 @@ namespace Trips.Data.Repository
     {
         protected readonly DbSet<T> _dataSet;
         protected readonly IRepositoryManager _iManager;
-        public Repository(DataContext dataContex, IRepositoryManager repositoryManager)
+        public Repository(DataContext dataContex)
         {
             _dataSet = dataContex.Set<T>();
-            _iManager = repositoryManager;
         }
         public List<T> Get()
         {
@@ -33,7 +32,6 @@ namespace Trips.Data.Repository
         public T Add(T t)
         {
             _dataSet.Add(t);
-            _iManager.Save();
             return t;
         }
         public bool Delete(int id)
@@ -42,7 +40,6 @@ namespace Trips.Data.Repository
             if (find != null)
             {
                 _dataSet.Remove(find);
-                _iManager.Save();
                 return true;
             }
             return false;
@@ -66,7 +63,6 @@ namespace Trips.Data.Repository
                     property.SetValue(existingEntity, updatedValue);
                 }
             }
-            _iManager.Save();
             return existingEntity;
         }
     }

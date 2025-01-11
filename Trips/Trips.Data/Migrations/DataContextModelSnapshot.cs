@@ -109,7 +109,7 @@ namespace Trips.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("guides");
+                    b.ToTable("Guides");
                 });
 
             modelBuilder.Entity("Trips.Core.Entities.Order", b =>
@@ -148,7 +148,7 @@ namespace Trips.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("orders");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Trips.Core.Entities.Trip", b =>
@@ -197,7 +197,7 @@ namespace Trips.Data.Migrations
 
                     b.HasIndex("GuideId");
 
-                    b.ToTable("trips");
+                    b.ToTable("Trips");
                 });
 
             modelBuilder.Entity("Trips.Core.Entities.User", b =>
@@ -243,7 +243,7 @@ namespace Trips.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("users");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("AttractionTrip", b =>

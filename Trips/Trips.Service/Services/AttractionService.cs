@@ -12,37 +12,44 @@ namespace Trips.Service.Servises
 {
     public class AttractionService: IAttractionService
     {
-        readonly IAttractionRepository _iRepository;
-        public AttractionService(IAttractionRepository iRepository)
+        readonly IRepositoryManager _iManager;
+        public AttractionService(IRepositoryManager iManager)
         {
-            _iRepository = iRepository;
+            _iManager = iManager;
         }
         public List<Attraction> Get()
         {
-            return _iRepository.Get();
+            return _iManager.IAttractionRep.Get();
         }
         public List<Attraction> GetAll()
         {
-            return _iRepository.GetAll();
+            return _iManager.IAttractionRep.GetAll();
         }
         public Attraction? GetById(int id)
         {
-            return _iRepository.GetById(id);
+            return _iManager.IAttractionRep.GetById(id);
         }
 
         public Attraction Add(Attraction attraction)
         {
-            attraction= _iRepository.Add(attraction);
+            attraction= _iManager.IAttractionRep.Add(attraction);
+            if (attraction!=null)
+                _iManager.Save();
             return attraction;
         }
         public Attraction Update(int id, Attraction attraction)
         {
-            attraction = _iRepository.Update(id, attraction);
+            attraction = _iManager.IAttractionRep.Update(id, attraction);
+            if (attraction != null)
+                _iManager.Save();
             return attraction;
         }
         public bool Delete(int id)
         {
-            return _iRepository.Delete(id);
+            bool flag= _iManager.IAttractionRep.Delete(id);
+            if (flag)
+                _iManager.Save();
+            return flag;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Trips.Data.Repository
 {
     public class UserRepository :Repository<User>, IUserRepository
     {
-        public UserRepository(DataContext dataContex, IRepositoryManager repositoryManager) : base(dataContex, repositoryManager)
+        public UserRepository(DataContext dataContex ) : base(dataContex)
         {
         }
         public List<User> GetAll()

@@ -12,41 +12,48 @@ namespace Trips.Service.Servises
 {
     public class GuideService : IGuideService
     {
-        readonly IGuideRepository _iRepository;
-        public GuideService(IGuideRepository iRepository)
+        readonly IRepositoryManager _iManager;
+        public GuideService(IRepositoryManager iManager)
         {
-            _iRepository = iRepository;
+            _iManager = iManager;
         }
         public List<Guide> Get()
         {
-            return _iRepository.Get();
+            return _iManager.IGuideRep.Get();
         }
         public List<Guide> GetAll()
         {
-            return _iRepository.GetAll();
+            return _iManager.IGuideRep.GetAll();
         }
         public Guide? GetById(int id)
         {
-            return _iRepository.GetById(id);
+            return _iManager.IGuideRep.GetById(id);
         }
 
         public Guide Add(Guide guide)
         {
             if (!CorrectTZ(guide.TZ))
                 return null;
-            guide=_iRepository.Add(guide);
+            guide= _iManager.IGuideRep.Add(guide);
+            if (guide != null)
+                _iManager.Save();
             return guide;
         }
         public Guide Update(int id, Guide guide)
         {
             if (!CorrectTZ(guide.TZ))
                 return null;
-            guide = _iRepository.Update(id, guide);
+            guide = _iManager.IGuideRep.Update(id, guide);
+            if (guide != null)
+                _iManager.Save();
             return guide;
         }
         public bool Delete(int id)
         {
-            return _iRepository.Delete(id);
+            bool flag= _iManager.IGuideRep.Delete(id);
+            if (flag)
+              _iManager.Save();
+            return flag;
         }
 
         public bool CorrectTZ(string TZ)

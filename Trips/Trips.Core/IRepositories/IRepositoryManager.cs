@@ -8,6 +8,11 @@ namespace Trips.Core.IRepositories
 {
     public interface IRepositoryManager
     {
+        IAttractionRepository IAttractionRep { get; set; }
+        IGuideRepository IGuideRep { get; set; }
+        IOrderRepository IOrderRep { get; set; }
+        ITripRepository ITripRep { get; set; }
+        IUserRepository IUserRep { get; set; }
         void Save();
     }
 }

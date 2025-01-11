@@ -11,7 +11,7 @@ namespace Trips.Data.Repository
 {
     public class TripRepository : Repository<Trip>, ITripRepository
     {
-        public TripRepository(DataContext dataContex, IRepositoryManager repositoryManager) : base(dataContex, repositoryManager)
+        public TripRepository(DataContext dataContex) : base(dataContex)
         {
         }
         public List<Trip> GetAll()

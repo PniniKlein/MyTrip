@@ -7,41 +7,48 @@ namespace Trips.Service.Servise
 {
     public class UserService : IUserService
     {
-        readonly IUserRepository _iRepository;
-        public UserService(IUserRepository iRepository)
+        readonly IRepositoryManager _iManager;
+        public UserService(IRepositoryManager iManager)
         {
-            _iRepository = iRepository;
+            _iManager = iManager;
         }
         public List<User> Get()
         {
-            return _iRepository.Get();
+            return _iManager.IUserRep.Get();
         }
         public List<User> GetAll()
         {
-            return _iRepository.GetAll();
+            return _iManager.IUserRep.GetAll();
         }
         public User? GetById(int id)
         {
-            return _iRepository.GetById(id);
+            return _iManager.IUserRep.GetById(id);
         }
 
         public User Add(User user)
         {
             if (!CorrectTZ(user.TZ))
                 return null;
-            user=_iRepository.Add(user);
+            user= _iManager.IUserRep.Add(user);
+            if (user != null)
+                _iManager.Save();
             return user;
         }
         public User Update(int id, User user)
         {
             if (!CorrectTZ(user.TZ))
                 return null;
-            user=_iRepository.Update(id, user);
+            user= _iManager.IUserRep.Update(id, user);
+            if (user != null)
+                _iManager.Save();
             return user;
         }
         public bool Delete(int id)
         {
-            return _iRepository.Delete(id);
+            bool flag = _iManager.IUserRep.Delete(id);
+            if(flag)
+                _iManager.Save();
+            return flag;
         }
 
         public bool CorrectTZ(string TZ)
