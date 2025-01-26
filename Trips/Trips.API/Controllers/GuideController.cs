@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Trips.API.PostModel;
+using Trips.Core.DTOs;
 using Trips.Core.Entities;
 using Trips.Core.IService;
 
@@ -11,13 +14,15 @@ namespace Trips.API.Controllers
     public class GuideController : ControllerBase
     {
         readonly IGuideService _iService;
-        public GuideController(IGuideService iservice)
+        readonly IMapper _mapper;
+        public GuideController(IGuideService iservice,IMapper mapper)
         {
             _iService = iservice;
+            _mapper = mapper;
         }
         // GET: api/<GuideController>
         [HttpGet]
-        public ActionResult<IEnumerable<Guide>> Get()
+        public ActionResult<IEnumerable<GuideDto>> Get()
         {
             return _iService.Get();
         }
@@ -29,32 +34,34 @@ namespace Trips.API.Controllers
 
         // GET api/<UserControllers>/5
         [HttpGet("{id}")]
-        public ActionResult<Guide> Get(int id)
+        public ActionResult<GuideDto> Get(int id)
         {
-            Guide guide = _iService.GetById(id);
-            if (guide == null)
+            GuideDto guideDto = _iService.GetById(id);
+            if (guideDto == null)
                 return NotFound();
-            return guide;
+            return guideDto;
         }
 
         // POST api/<UserControllers>
         [HttpPost]
-        public ActionResult<Guide> Post([FromBody] Guide guide)
+        public ActionResult<GuideDto> Post([FromBody] GuidePostModel guidePostModel)
         {
-            guide= _iService.Add(guide);
-            if (guide == null)
+            GuideDto guideDto = _mapper.Map<GuideDto>(guidePostModel);
+            guideDto= _iService.Add(guideDto);
+            if (guideDto == null)
                 return NotFound();
-            return guide;
+            return guideDto;
         }
 
         // PUT api/<UserControllers>/5
         [HttpPut("{id}")]
-        public ActionResult<Guide> Put(int id, [FromBody] Guide guide)
+        public ActionResult<GuideDto> Put(int id, [FromBody] GuidePostModel guidePostModel)
         {
-            guide= _iService.Update(id, guide);
-            if (guide == null)
+            GuideDto guideDto = _mapper.Map<GuideDto>(guidePostModel);
+            guideDto = _iService.Update(id, guideDto);
+            if (guideDto == null)
                 return NotFound();
-            return guide;
+            return guideDto;
         }
 
         // DELETE api/<UserControllers>/5

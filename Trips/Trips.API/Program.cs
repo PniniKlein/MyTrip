@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using Trips.API;
 using Trips.API.Controllers;
+using Trips.Core;
 using Trips.Core.Entities;
 using Trips.Core.IRepositories;
 using Trips.Core.IRepository;
@@ -35,6 +37,7 @@ builder.Services.AddScoped<ITripRepository, TripRepository>();
 builder.Services.AddScoped<IUserRepository,UserRepository>();
 
 builder.Services.AddScoped<IRepositoryManager,RepositoryManager>();
+builder.Services.AddAutoMapper(typeof(MappingProfile), typeof(MappingPostProfile));
 
 //builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddControllers();

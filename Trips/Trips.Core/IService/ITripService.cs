@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Trips.Core.DTOs;
 using Trips.Core.Entities;
 
 namespace Trips.Core.IService
 {
     public interface ITripService
     {
-        List<Trip> Get();
+        List<TripDto> Get();
         List<Trip> GetAll();
-        Trip GetById(int id);
-        Trip Add(Trip trip);
-        Trip Update(int id, Trip trip);
+        TripDto GetById(int id);
+        TripDto Add(TripDto tripDto);
+        TripDto Update(int id, TripDto tripDto);
         bool Delete(int id);
     }
 }

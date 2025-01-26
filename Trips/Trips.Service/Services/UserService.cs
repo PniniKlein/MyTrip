@@ -1,4 +1,6 @@
-﻿using Trips.Core.Entities;
+﻿using AutoMapper;
+using Trips.Core.DTOs;
+using Trips.Core.Entities;
 using Trips.Core.IRepositories;
 using Trips.Core.IRepository;
 using Trips.Core.IService;
@@ -7,41 +9,51 @@ namespace Trips.Service.Servise
 {
     public class UserService : IUserService
     {
-        readonly IRepositoryManager _iManager;
-        public UserService(IRepositoryManager iManager)
+        private readonly IRepositoryManager _iManager;
+        private readonly IMapper _mapper;
+        public UserService(IRepositoryManager iManager,IMapper mapper)
         {
             _iManager = iManager;
+            _mapper = mapper;
         }
-        public List<User> Get()
+        public List<UserDto> Get()
         {
-            return _iManager.IUserRep.Get();
+            List<User> users = _iManager.IUserRep.Get();
+            List<UserDto> userDtos = _mapper.Map<List<UserDto>>(users);
+            return userDtos;
         }
         public List<User> GetAll()
         {
             return _iManager.IUserRep.GetAll();
         }
-        public User? GetById(int id)
+        public UserDto? GetById(int id)
         {
-            return _iManager.IUserRep.GetById(id);
+            User user = _iManager.IUserRep.GetById(id);
+            UserDto userDto = _mapper.Map<UserDto>(user);
+            return userDto;
         }
 
-        public User Add(User user)
+        public UserDto Add(UserDto userDto)
         {
-            if (!CorrectTZ(user.TZ))
+            if (!CorrectTZ(userDto.TZ))
                 return null;
+            User user = _mapper.Map<User>(userDto);
             user= _iManager.IUserRep.Add(user);
             if (user != null)
                 _iManager.Save();
-            return user;
+            userDto = _mapper.Map<UserDto>(user);
+            return userDto;
         }
-        public User Update(int id, User user)
+        public UserDto Update(int id, UserDto userDto)
         {
-            if (!CorrectTZ(user.TZ))
+            if (!CorrectTZ(userDto.TZ))
                 return null;
-            user= _iManager.IUserRep.Update(id, user);
+            User user = _mapper.Map<User>(userDto);
+            user = _iManager.IUserRep.Update(id, user);
             if (user != null)
                 _iManager.Save();
-            return user;
+            userDto = _mapper.Map<UserDto>(user);
+            return userDto;
         }
         public bool Delete(int id)
         {

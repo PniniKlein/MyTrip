@@ -1,8 +1,10 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Trips.Core.DTOs;
 using Trips.Core.Entities;
 using Trips.Core.IRepositories;
 using Trips.Core.IRepository;
@@ -12,37 +14,47 @@ namespace Trips.Service.Servises
 {
     public class TripService : ITripService
     {
-        readonly IRepositoryManager _iManager;
-        public TripService(IRepositoryManager iManager)
+        private readonly IRepositoryManager _iManager;
+        private readonly IMapper _mapper;
+        public TripService(IRepositoryManager iManager,IMapper mapper)
         {
             _iManager = iManager;
+            _mapper = mapper;
         }
-        public List<Trip> Get()
+        public List<TripDto> Get()
         {
-            return _iManager.ITripRep.Get();
+            List<Trip> trips = _iManager.ITripRep.Get();
+            List<TripDto> tripDtos = _mapper.Map<List<TripDto>>(trips);
+            return tripDtos;
         }
         public List<Trip> GetAll()
         {
             return _iManager.ITripRep.GetAll();
         }
-        public Trip? GetById(int id)
+        public TripDto? GetById(int id)
         {
-            return _iManager.ITripRep.GetById(id);
+            Trip trip = _iManager.ITripRep.GetById(id);
+            TripDto tripDto = _mapper.Map<TripDto>(trip);
+            return tripDto;
         }
 
-        public Trip Add(Trip trip)
+        public TripDto Add(TripDto tripDto)
         {
-           trip= _iManager.ITripRep.Add(trip);
+            Trip trip = _mapper.Map<Trip>(tripDto);
+            trip= _iManager.ITripRep.Add(trip);
             if (trip != null)
                 _iManager.Save();
-            return trip;
+            tripDto = _mapper.Map<TripDto>(trip);
+            return tripDto;
         }
-        public Trip Update(int id, Trip trip)
+        public TripDto Update(int id, TripDto tripDto)
         {
-            trip= _iManager.ITripRep.Update(id, trip);
+            Trip trip = _mapper.Map<Trip>(tripDto);
+            trip = _iManager.ITripRep.Update(id, trip);
             if (trip != null)
                 _iManager.Save();
-            return trip;
+            tripDto = _mapper.Map<TripDto>(trip);
+            return tripDto;
         }
         public bool Delete(int id)
         {

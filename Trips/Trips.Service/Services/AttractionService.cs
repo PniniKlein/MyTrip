@@ -1,8 +1,10 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Trips.Core.DTOs;
 using Trips.Core.Entities;
 using Trips.Core.IRepositories;
 using Trips.Core.IRepository;
@@ -12,37 +14,47 @@ namespace Trips.Service.Servises
 {
     public class AttractionService: IAttractionService
     {
-        readonly IRepositoryManager _iManager;
-        public AttractionService(IRepositoryManager iManager)
+        private readonly IRepositoryManager _iManager;
+        private readonly IMapper _mapper;
+        public AttractionService(IRepositoryManager iManager,IMapper mapper)
         {
             _iManager = iManager;
+            _mapper = mapper;
         }
-        public List<Attraction> Get()
+        public List<AttractionDto> Get()
         {
-            return _iManager.IAttractionRep.Get();
+            List<Attraction> attractions = _iManager.IAttractionRep.Get();
+            List<AttractionDto> attractionDtos = _mapper.Map<List<AttractionDto>>(attractions);
+            return attractionDtos;
         }
         public List<Attraction> GetAll()
         {
             return _iManager.IAttractionRep.GetAll();
         }
-        public Attraction? GetById(int id)
+        public AttractionDto? GetById(int id)
         {
-            return _iManager.IAttractionRep.GetById(id);
+            Attraction attraction = _iManager.IAttractionRep.GetById(id);
+            AttractionDto attractionDto = _mapper.Map<AttractionDto>(attraction);
+            return attractionDto;
         }
 
-        public Attraction Add(Attraction attraction)
+        public AttractionDto Add(AttractionDto attractionDto)
         {
-            attraction= _iManager.IAttractionRep.Add(attraction);
+            Attraction attraction = _mapper.Map<Attraction>(attractionDto);
+            attraction = _iManager.IAttractionRep.Add(attraction);
             if (attraction!=null)
                 _iManager.Save();
-            return attraction;
+            attractionDto = _mapper.Map<AttractionDto>(attraction);
+            return attractionDto;
         }
-        public Attraction Update(int id, Attraction attraction)
+        public AttractionDto Update(int id, AttractionDto attractionDto)
         {
+            Attraction attraction = _mapper.Map<Attraction>(attractionDto);
             attraction = _iManager.IAttractionRep.Update(id, attraction);
             if (attraction != null)
                 _iManager.Save();
-            return attraction;
+            attractionDto = _mapper.Map<AttractionDto>(attraction);
+            return attractionDto;
         }
         public bool Delete(int id)
         {

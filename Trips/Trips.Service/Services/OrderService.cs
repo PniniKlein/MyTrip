@@ -1,8 +1,10 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Trips.Core.DTOs;
 using Trips.Core.Entities;
 using Trips.Core.IRepositories;
 using Trips.Core.IRepository;
@@ -13,36 +15,46 @@ namespace Trips.Service.Servises
     public class OrderService : IOrderService
     {
         readonly IRepositoryManager _iManager;
-        public OrderService(IRepositoryManager iManager)
+        private readonly IMapper _mapper;
+        public OrderService(IRepositoryManager iManager,IMapper mapper)
         {
-            IRepositoryManager _iManager;
+            _iManager = iManager;
+            _mapper = mapper;
         }
-        public List<Order> Get()
+        public List<OrderDto> Get()
         {
-            return _iManager.IOrderRep.Get();
+            List<Order> orders = _iManager.IOrderRep.Get();
+            List<OrderDto> ordersDtos = _mapper.Map<List<OrderDto>>(orders);
+            return ordersDtos;
         }
         public List<Order> GetAll()
         {
             return _iManager.IOrderRep.GetAll();
         }
-        public Order? GetById(int id)
+        public OrderDto? GetById(int id)
         {
-            return _iManager.IOrderRep.GetById(id);
+            Order order = _iManager.IOrderRep.GetById(id);
+            OrderDto orderDto = _mapper.Map<OrderDto>(order);
+            return orderDto;
         }
 
-        public Order Add(Order order)
+        public OrderDto Add(OrderDto orderDto)
         {
-           order= _iManager.IOrderRep.Add(order);
+            Order order = _mapper.Map<Order>(orderDto);
+            order= _iManager.IOrderRep.Add(order);
             if (order != null)
                 _iManager.Save();
-            return order;
+            orderDto = _mapper.Map<OrderDto>(order);
+            return orderDto;
         }
-        public Order Update(int id, Order order)
+        public OrderDto Update(int id, OrderDto orderDto)
         {
+            Order order = _mapper.Map<Order>(orderDto);
             order = _iManager.IOrderRep.Update(id, order);
             if (order != null)
                 _iManager.Save();
-            return order;
+            orderDto = _mapper.Map<OrderDto>(order);
+            return orderDto;
         }
         public bool Delete(int id)
         {

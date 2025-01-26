@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Trips.API.PostModel;
+using Trips.Core.DTOs;
 using Trips.Core.Entities;
 using Trips.Core.IService;
 
@@ -11,13 +14,15 @@ namespace Trips.API.Controllers
     public class OrderController : ControllerBase
     {
         readonly IOrderService _iService;
-        public OrderController(IOrderService iservice)
+        readonly IMapper _mapper;
+        public OrderController(IOrderService iservice,IMapper mapper)
         {
             _iService = iservice;
+            _mapper = mapper;
         }
         // GET: api/<OrderController>
         [HttpGet]
-        public ActionResult<IEnumerable<Order>> Get()
+        public ActionResult<IEnumerable<OrderDto>> Get()
         {
             return _iService.Get();
         }
@@ -28,32 +33,34 @@ namespace Trips.API.Controllers
         }
         // GET api/<UserControllers>/5
         [HttpGet("{id}")]
-        public ActionResult<Order> Get(int id)
+        public ActionResult<OrderDto> Get(int id)
         {
-            Order order = _iService.GetById(id);
-            if (order == null)
+            OrderDto orderDto = _iService.GetById(id);
+            if (orderDto == null)
                 return NotFound();
-            return order;
+            return orderDto;
         }
 
         // POST api/<UserControllers>
         [HttpPost]
-        public ActionResult<Order> Post([FromBody] Order order)
+        public ActionResult<OrderDto> Post([FromBody] OrderPostModel orderPostModel)
         {
-            order= _iService.Add(order);
-            if (order == null)
+            OrderDto orderDto = _mapper.Map<OrderDto>(orderPostModel);
+            orderDto = _iService.Add(orderDto);
+            if (orderDto == null)
                 return NotFound();
-            return order;
+            return orderDto;
         }
 
         // PUT api/<UserControllers>/5
         [HttpPut("{id}")]
-        public ActionResult<Order> Put(int id, [FromBody] Order order)
+        public ActionResult<OrderDto> Put(int id, [FromBody] OrderPostModel orderPostModel)
         {
-            order= _iService.Update(id, order);
-            if (order == null)
+            OrderDto orderDto = _mapper.Map<OrderDto>(orderPostModel);
+            orderDto= _iService.Update(id, orderDto);
+            if (orderDto == null)
                 return NotFound();
-            return order;
+            return orderDto;
         }
 
         // DELETE api/<UserControllers>/5

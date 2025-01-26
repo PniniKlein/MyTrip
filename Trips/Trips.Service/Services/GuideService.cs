@@ -1,8 +1,10 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Trips.Core.DTOs;
 using Trips.Core.Entities;
 using Trips.Core.IRepositories;
 using Trips.Core.IRepository;
@@ -13,40 +15,50 @@ namespace Trips.Service.Servises
     public class GuideService : IGuideService
     {
         readonly IRepositoryManager _iManager;
-        public GuideService(IRepositoryManager iManager)
+        private readonly IMapper _mapper;
+        public GuideService(IRepositoryManager iManager,IMapper mapper)
         {
             _iManager = iManager;
+            _mapper = mapper;
         }
-        public List<Guide> Get()
+        public List<GuideDto> Get()
         {
-            return _iManager.IGuideRep.Get();
+            List<Guide> guides = _iManager.IGuideRep.Get();
+            List<GuideDto> guideDtos = _mapper.Map<List<GuideDto>>(guides);
+            return guideDtos;
         }
         public List<Guide> GetAll()
         {
             return _iManager.IGuideRep.GetAll();
         }
-        public Guide? GetById(int id)
+        public GuideDto? GetById(int id)
         {
-            return _iManager.IGuideRep.GetById(id);
+            Guide guide = _iManager.IGuideRep.GetById(id);
+            GuideDto guideDto = _mapper.Map<GuideDto>(guide);
+            return guideDto;
         }
 
-        public Guide Add(Guide guide)
+        public GuideDto Add(GuideDto guideDto)
         {
-            if (!CorrectTZ(guide.TZ))
+            if (!CorrectTZ(guideDto.TZ))
                 return null;
+            Guide guide = _mapper.Map<Guide>(guideDto);
             guide= _iManager.IGuideRep.Add(guide);
             if (guide != null)
                 _iManager.Save();
-            return guide;
+            guideDto = _mapper.Map<GuideDto>(guide);
+            return guideDto;
         }
-        public Guide Update(int id, Guide guide)
+        public GuideDto Update(int id, GuideDto guideDto)
         {
-            if (!CorrectTZ(guide.TZ))
+            if (!CorrectTZ(guideDto.TZ))
                 return null;
+            Guide guide = _mapper.Map<Guide>(guideDto);
             guide = _iManager.IGuideRep.Update(id, guide);
             if (guide != null)
                 _iManager.Save();
-            return guide;
+            guideDto = _mapper.Map<GuideDto>(guide);
+            return guideDto;
         }
         public bool Delete(int id)
         {

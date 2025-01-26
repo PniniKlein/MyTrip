@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Trips.API.PostModel;
+using Trips.Core.DTOs;
 using Trips.Core.Entities;
 using Trips.Core.IService;
 
@@ -11,13 +14,15 @@ namespace Trips.API.Controllers
     public class AttractionController : ControllerBase
     {
         readonly IAttractionService _iService;
-        public AttractionController(IAttractionService iservice)
+        readonly IMapper _mapper;
+        public AttractionController(IAttractionService iservice,IMapper mapper)
         {
             _iService = iservice;
+            _mapper = mapper;
         }
         // GET: api/<AttractionController>
         [HttpGet]
-        public ActionResult<IEnumerable<Attraction>> Get()
+        public ActionResult<IEnumerable<AttractionDto>> Get()
         {
             return _iService.Get();
         }
@@ -29,32 +34,34 @@ namespace Trips.API.Controllers
 
         // GET api/<UserControllers>/5
         [HttpGet("{id}")]
-        public ActionResult<Attraction> Get(int id)
+        public ActionResult<AttractionDto> Get(int id)
         {
-            Attraction attraction = _iService.GetById(id);
-            if (attraction == null)
+            AttractionDto attractionDto = _iService.GetById(id);
+            if (attractionDto == null)
                 return NotFound();
-            return attraction;
+            return attractionDto;
         }
 
         // POST api/<UserControllers>
         [HttpPost]
-        public ActionResult<Attraction> Post([FromBody] Attraction attraction)
+        public ActionResult<AttractionDto> Post([FromBody] AttractionPostModel attractionPostModel)
         {
-            attraction= _iService.Add(attraction);
-            if (attraction == null)
+            AttractionDto attractionDto = _mapper.Map<AttractionDto>(attractionPostModel);
+            attractionDto = _iService.Add(attractionDto);
+            if (attractionDto == null)
                 return NotFound();
-            return attraction;
+            return attractionDto;
         }
 
         // PUT api/<UserControllers>/5
         [HttpPut("{id}")]
-        public ActionResult<Attraction> Put(int id, [FromBody] Attraction attraction)
+        public ActionResult<AttractionDto> Put(int id, [FromBody] AttractionPostModel attractionPostModel)
         {
-            attraction= _iService.Update(id, attraction);
-            if (attraction == null)
+            AttractionDto attractionDto = _mapper.Map<AttractionDto>(attractionPostModel);
+            attractionDto = _iService.Update(id, attractionDto);
+            if (attractionDto == null)
                 return NotFound();
-            return attraction;
+            return attractionDto;
         }
 
         // DELETE api/<UserControllers>/5

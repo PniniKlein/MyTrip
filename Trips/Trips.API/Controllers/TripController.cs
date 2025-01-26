@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Trips.API.PostModel;
+using Trips.Core.DTOs;
 using Trips.Core.Entities;
 using Trips.Core.IService;
 
@@ -11,13 +14,15 @@ namespace Trips.API.Controllers
     public class TripController : ControllerBase
     {
         readonly ITripService _iService;
-        public TripController(ITripService iservice)
+        readonly IMapper _mapper;
+        public TripController(ITripService iservice,IMapper mapper)
         {
             _iService = iservice;
+            _mapper = mapper;
         }
         // GET: api/<TripController>
         [HttpGet]
-        public ActionResult<IEnumerable<Trip>> Get()
+        public ActionResult<IEnumerable<TripDto>> Get()
         {
             return _iService.Get();
         }
@@ -28,32 +33,34 @@ namespace Trips.API.Controllers
         }
         // GET api/<UserControllers>/5
         [HttpGet("{id}")]
-        public ActionResult<Trip> Get(int id)
+        public ActionResult<TripDto> Get(int id)
         {
-            Trip trip = _iService.GetById(id);
-            if (trip == null)
+            TripDto tripDto = _iService.GetById(id);
+            if (tripDto == null)
                 return NotFound();
-            return trip;
+            return tripDto;
         }
 
         // POST api/<UserControllers>
         [HttpPost]
-        public ActionResult<Trip> Post([FromBody] Trip trip)
+        public ActionResult<TripDto> Post([FromBody] TripPostModel tripPostModel)
         {
-            trip= _iService.Add(trip);
-            if (trip == null)
+            TripDto tripDto = _mapper.Map<TripDto>(tripPostModel);
+            tripDto = _iService.Add(tripDto);
+            if (tripDto == null)
                 return NotFound();
-            return trip;
+            return tripDto;
         }
 
         // PUT api/<UserControllers>/5
         [HttpPut("{id}")]
-        public ActionResult<Trip> Put(int id, [FromBody] Trip trip)
+        public ActionResult<TripDto> Put(int id, [FromBody] TripPostModel tripPostModel)
         {
-            trip= _iService.Update(id, trip);
-            if (trip == null)
+            TripDto tripDto = _mapper.Map<TripDto>(tripPostModel);
+            tripDto = _iService.Update(id, tripDto);
+            if (tripDto == null)
                 return NotFound();
-            return trip;
+            return tripDto;
         }
 
         // DELETE api/<UserControllers>/5
