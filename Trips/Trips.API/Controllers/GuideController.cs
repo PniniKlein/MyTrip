@@ -22,21 +22,21 @@ namespace Trips.API.Controllers
         }
         // GET: api/<GuideController>
         [HttpGet]
-        public ActionResult<IEnumerable<GuideDto>> Get()
+        public async Task<ActionResult<IEnumerable<GuideDto>>> Get()
         {
-            return _iService.Get();
+            return await _iService.GetAsync();
         }
         [HttpGet("GetAll")]
-        public ActionResult<IEnumerable<Guide>> GetAll()
+        public async Task<ActionResult<IEnumerable<Guide>>> GetAll()
         {
-            return _iService.GetAll();
+            return await _iService.GetAllAsync();
         }
 
         // GET api/<UserControllers>/5
         [HttpGet("{id}")]
-        public ActionResult<GuideDto> Get(int id)
+        public async Task<ActionResult<GuideDto>> Get(int id)
         {
-            GuideDto guideDto = _iService.GetById(id);
+            GuideDto guideDto =await _iService.GetByIdAsync(id);
             if (guideDto == null)
                 return NotFound();
             return guideDto;
@@ -44,10 +44,10 @@ namespace Trips.API.Controllers
 
         // POST api/<UserControllers>
         [HttpPost]
-        public ActionResult<GuideDto> Post([FromBody] GuidePostModel guidePostModel)
+        public async Task<ActionResult<GuideDto>> Post([FromBody] GuidePostModel guidePostModel)
         {
             GuideDto guideDto = _mapper.Map<GuideDto>(guidePostModel);
-            guideDto= _iService.Add(guideDto);
+            guideDto=await _iService.AddAsync(guideDto);
             if (guideDto == null)
                 return NotFound();
             return guideDto;
@@ -55,10 +55,10 @@ namespace Trips.API.Controllers
 
         // PUT api/<UserControllers>/5
         [HttpPut("{id}")]
-        public ActionResult<GuideDto> Put(int id, [FromBody] GuidePostModel guidePostModel)
+        public async Task<ActionResult<GuideDto>> PutAsync(int id, [FromBody] GuidePostModel guidePostModel)
         {
             GuideDto guideDto = _mapper.Map<GuideDto>(guidePostModel);
-            guideDto = _iService.Update(id, guideDto);
+            guideDto =await _iService.UpdateAsync(id, guideDto);
             if (guideDto == null)
                 return NotFound();
             return guideDto;
@@ -66,9 +66,9 @@ namespace Trips.API.Controllers
 
         // DELETE api/<UserControllers>/5
         [HttpDelete("{id}")]
-        public ActionResult<bool> Delete(int id)
+        public async Task<ActionResult<bool>> DeleteAsync(int id)
         {
-            return _iService.Delete(id);
+            return await _iService.DeleteAsync(id);
         }
     }
 }

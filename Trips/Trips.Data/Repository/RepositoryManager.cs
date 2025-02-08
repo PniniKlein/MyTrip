@@ -27,9 +27,9 @@ namespace Trips.Data.Repository
             ITripRep = tripRepository;
             IUserRep = userRepository;
         }
-        public void Save()
+        public async Task SaveAsync()
         {
-            _dataContext.SaveChanges();
+           await _dataContext.SaveChangesAsync();
         }
     }
 }

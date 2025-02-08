@@ -9,10 +9,10 @@ namespace Trips.Core.IRepository
 {
     public interface IRepository<T>
     {
-        List<T> Get();
-        T GetById(int id);
-        T Add(T user);
-        T Update(int id, T user);
-        bool Delete(int id);
+        Task<List<T>> GetAsync();
+        Task<T> GetByIdAsync(int id);
+        Task<T> AddAsync(T user);
+        Task<T> UpdateAsync(int id, T user);
+        Task<bool> DeleteAsync(int id);
     }
 }

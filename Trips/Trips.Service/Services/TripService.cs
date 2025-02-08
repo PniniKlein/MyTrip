@@ -21,46 +21,46 @@ namespace Trips.Service.Servises
             _iManager = iManager;
             _mapper = mapper;
         }
-        public List<TripDto> Get()
+        public async Task<List<TripDto>> GetAsync()
         {
-            List<Trip> trips = _iManager.ITripRep.Get();
+            List<Trip> trips = await _iManager.ITripRep.GetAsync();
             List<TripDto> tripDtos = _mapper.Map<List<TripDto>>(trips);
             return tripDtos;
         }
-        public List<Trip> GetAll()
+        public async Task<List<Trip>> GetAllAsync()
         {
-            return _iManager.ITripRep.GetAll();
+            return await _iManager.ITripRep.GetAllAsync();
         }
-        public TripDto? GetById(int id)
+        public async Task<TripDto>? GetByIdAsync(int id)
         {
-            Trip trip = _iManager.ITripRep.GetById(id);
+            Trip trip =await _iManager.ITripRep.GetByIdAsync(id);
             TripDto tripDto = _mapper.Map<TripDto>(trip);
             return tripDto;
         }
 
-        public TripDto Add(TripDto tripDto)
+        public async Task<TripDto> AddAsync(TripDto tripDto)
         {
             Trip trip = _mapper.Map<Trip>(tripDto);
-            trip= _iManager.ITripRep.Add(trip);
+            trip=await _iManager.ITripRep.AddAsync(trip);
             if (trip != null)
-                _iManager.Save();
+               await _iManager.SaveAsync();
             tripDto = _mapper.Map<TripDto>(trip);
             return tripDto;
         }
-        public TripDto Update(int id, TripDto tripDto)
+        public async Task<TripDto> UpdateAsync(int id, TripDto tripDto)
         {
             Trip trip = _mapper.Map<Trip>(tripDto);
-            trip = _iManager.ITripRep.Update(id, trip);
+            trip =await _iManager.ITripRep.UpdateAsync(id, trip);
             if (trip != null)
-                _iManager.Save();
+               await _iManager.SaveAsync();
             tripDto = _mapper.Map<TripDto>(trip);
             return tripDto;
         }
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            bool flag = _iManager.ITripRep.Delete(id);
+            bool flag =await _iManager.ITripRep.DeleteAsync(id);
             if(flag)
-                _iManager.Save();
+               await _iManager.SaveAsync();
             return flag;
         }
     }

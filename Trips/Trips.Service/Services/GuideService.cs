@@ -21,50 +21,50 @@ namespace Trips.Service.Servises
             _iManager = iManager;
             _mapper = mapper;
         }
-        public List<GuideDto> Get()
+        public async Task<List<GuideDto>> GetAsync()
         {
-            List<Guide> guides = _iManager.IGuideRep.Get();
+            List<Guide> guides = await _iManager.IGuideRep.GetAsync();
             List<GuideDto> guideDtos = _mapper.Map<List<GuideDto>>(guides);
             return guideDtos;
         }
-        public List<Guide> GetAll()
+        public async Task<List<Guide>> GetAllAsync()
         {
-            return _iManager.IGuideRep.GetAll();
+            return await _iManager.IGuideRep.GetAllAsync();
         }
-        public GuideDto? GetById(int id)
+        public async Task<GuideDto>? GetByIdAsync(int id)
         {
-            Guide guide = _iManager.IGuideRep.GetById(id);
+            Guide guide =await _iManager.IGuideRep.GetByIdAsync(id);
             GuideDto guideDto = _mapper.Map<GuideDto>(guide);
             return guideDto;
         }
 
-        public GuideDto Add(GuideDto guideDto)
+        public async Task<GuideDto> AddAsync(GuideDto guideDto)
         {
             if (!CorrectTZ(guideDto.TZ))
                 return null;
             Guide guide = _mapper.Map<Guide>(guideDto);
-            guide= _iManager.IGuideRep.Add(guide);
+            guide=await _iManager.IGuideRep.AddAsync(guide);
             if (guide != null)
-                _iManager.Save();
+               await _iManager.SaveAsync();
             guideDto = _mapper.Map<GuideDto>(guide);
             return guideDto;
         }
-        public GuideDto Update(int id, GuideDto guideDto)
+        public async Task<GuideDto> UpdateAsync(int id, GuideDto guideDto)
         {
             if (!CorrectTZ(guideDto.TZ))
                 return null;
             Guide guide = _mapper.Map<Guide>(guideDto);
-            guide = _iManager.IGuideRep.Update(id, guide);
+            guide =await _iManager.IGuideRep.UpdateAsync(id, guide);
             if (guide != null)
-                _iManager.Save();
+               await _iManager.SaveAsync();
             guideDto = _mapper.Map<GuideDto>(guide);
             return guideDto;
         }
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            bool flag= _iManager.IGuideRep.Delete(id);
+            bool flag=await _iManager.IGuideRep.DeleteAsync(id);
             if (flag)
-              _iManager.Save();
+             await _iManager.SaveAsync();
             return flag;
         }
 

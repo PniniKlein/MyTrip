@@ -16,50 +16,50 @@ namespace Trips.Service.Servise
             _iManager = iManager;
             _mapper = mapper;
         }
-        public List<UserDto> Get()
+        public async Task<List<UserDto>> GetAsync()
         {
-            List<User> users = _iManager.IUserRep.Get();
+            List<User> users = await _iManager.IUserRep.GetAsync();
             List<UserDto> userDtos = _mapper.Map<List<UserDto>>(users);
             return userDtos;
         }
-        public List<User> GetAll()
+        public async Task<List<User>> GetAllAsync()
         {
-            return _iManager.IUserRep.GetAll();
+            return await _iManager.IUserRep.GetAllAsync();
         }
-        public UserDto? GetById(int id)
+        public async Task<UserDto>? GetByIdAsync(int id)
         {
-            User user = _iManager.IUserRep.GetById(id);
+            User user =await _iManager.IUserRep.GetByIdAsync(id);
             UserDto userDto = _mapper.Map<UserDto>(user);
             return userDto;
         }
 
-        public UserDto Add(UserDto userDto)
+        public async Task<UserDto> AddAsync(UserDto userDto)
         {
             if (!CorrectTZ(userDto.TZ))
                 return null;
             User user = _mapper.Map<User>(userDto);
-            user= _iManager.IUserRep.Add(user);
+            user=await _iManager.IUserRep.AddAsync(user);
             if (user != null)
-                _iManager.Save();
+               await _iManager.SaveAsync();
             userDto = _mapper.Map<UserDto>(user);
             return userDto;
         }
-        public UserDto Update(int id, UserDto userDto)
+        public async Task<UserDto> UpdateAsync(int id, UserDto userDto)
         {
             if (!CorrectTZ(userDto.TZ))
                 return null;
             User user = _mapper.Map<User>(userDto);
-            user = _iManager.IUserRep.Update(id, user);
+            user =await _iManager.IUserRep.UpdateAsync(id, user);
             if (user != null)
-                _iManager.Save();
+               await _iManager.SaveAsync();
             userDto = _mapper.Map<UserDto>(user);
             return userDto;
         }
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            bool flag = _iManager.IUserRep.Delete(id);
+            bool flag =await _iManager.IUserRep.DeleteAsync(id);
             if(flag)
-                _iManager.Save();
+               await _iManager.SaveAsync();
             return flag;
         }
 

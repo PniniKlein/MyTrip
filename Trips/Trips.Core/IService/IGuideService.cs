@@ -10,11 +10,11 @@ namespace Trips.Core.IService
 {
     public interface IGuideService
     {
-        List<GuideDto> Get();
-        List<Guide> GetAll();
-        GuideDto GetById(int id);
-        GuideDto Add(GuideDto guideDto);
-        GuideDto Update(int id, GuideDto guideDto);
-        bool Delete(int id);
+        Task<List<GuideDto>> GetAsync();
+        Task<List<Guide>> GetAllAsync();
+        Task<GuideDto> GetByIdAsync(int id);
+        Task<GuideDto> AddAsync(GuideDto guideDto);
+        Task<GuideDto> UpdateAsync(int id, GuideDto guideDto);
+        Task<bool> DeleteAsync(int id);
     }
 }

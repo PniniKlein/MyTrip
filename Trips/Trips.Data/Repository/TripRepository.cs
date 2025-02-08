@@ -14,9 +14,9 @@ namespace Trips.Data.Repository
         public TripRepository(DataContext dataContex) : base(dataContex)
         {
         }
-        public List<Trip> GetAll()
+        public async Task<List<Trip>> GetAllAsync()
         {
-            return _dataSet.Include(x => x.Guide).Include(x => x.attractions).Include(x => x.orders).ToList();
+            return await _dataSet.Include(x => x.Guide).Include(x => x.attractions).Include(x => x.orders).ToListAsync();
         }
     }
 }

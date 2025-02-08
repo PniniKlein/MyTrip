@@ -22,20 +22,20 @@ namespace Trips.API.Controllers
         }
         // GET: api/<OrderController>
         [HttpGet]
-        public ActionResult<IEnumerable<OrderDto>> Get()
+        public async Task<ActionResult<IEnumerable<OrderDto>>> Get()
         {
-            return _iService.Get();
+            return await _iService.GetAsync();
         }
         [HttpGet("GetAll")]
-        public ActionResult<IEnumerable<Order>> GetAll()
+        public async Task<ActionResult<IEnumerable<Order>>> GetAll()
         {
-            return _iService.GetAll();
+            return await _iService.GetAllAsync();
         }
         // GET api/<UserControllers>/5
         [HttpGet("{id}")]
-        public ActionResult<OrderDto> Get(int id)
+        public async Task<ActionResult<OrderDto>> Get(int id)
         {
-            OrderDto orderDto = _iService.GetById(id);
+            OrderDto orderDto =await _iService.GetByIdAsync(id);
             if (orderDto == null)
                 return NotFound();
             return orderDto;
@@ -43,10 +43,10 @@ namespace Trips.API.Controllers
 
         // POST api/<UserControllers>
         [HttpPost]
-        public ActionResult<OrderDto> Post([FromBody] OrderPostModel orderPostModel)
+        public async Task<ActionResult<OrderDto>> Post([FromBody] OrderPostModel orderPostModel)
         {
             OrderDto orderDto = _mapper.Map<OrderDto>(orderPostModel);
-            orderDto = _iService.Add(orderDto);
+            orderDto =await _iService.AddAsync(orderDto);
             if (orderDto == null)
                 return NotFound();
             return orderDto;
@@ -54,10 +54,10 @@ namespace Trips.API.Controllers
 
         // PUT api/<UserControllers>/5
         [HttpPut("{id}")]
-        public ActionResult<OrderDto> Put(int id, [FromBody] OrderPostModel orderPostModel)
+        public async Task<ActionResult<OrderDto>> Put(int id, [FromBody] OrderPostModel orderPostModel)
         {
             OrderDto orderDto = _mapper.Map<OrderDto>(orderPostModel);
-            orderDto= _iService.Update(id, orderDto);
+            orderDto=await _iService.UpdateAsync(id, orderDto);
             if (orderDto == null)
                 return NotFound();
             return orderDto;
@@ -65,9 +65,9 @@ namespace Trips.API.Controllers
 
         // DELETE api/<UserControllers>/5
         [HttpDelete("{id}")]
-        public ActionResult<bool> Delete(int id)
+        public async Task<ActionResult<bool>> Delete(int id)
         {
-            return _iService.Delete(id);
+            return await _iService.DeleteAsync(id);
         }
     }
 }

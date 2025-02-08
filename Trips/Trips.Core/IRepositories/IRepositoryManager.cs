@@ -13,6 +13,6 @@ namespace Trips.Core.IRepositories
         IOrderRepository IOrderRep { get; set; }
         ITripRepository ITripRep { get; set; }
         IUserRepository IUserRep { get; set; }
-        void Save();
+        Task SaveAsync();
     }
 }

@@ -10,6 +10,6 @@ namespace Trips.Core.IRepositories
 {
     public interface IGuideRepository : IRepository<Guide>
     {
-        List<Guide> GetAll();
+        Task<List<Guide>> GetAllAsync();
     }
 }

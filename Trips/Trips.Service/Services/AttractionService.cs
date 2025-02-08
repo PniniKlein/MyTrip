@@ -21,46 +21,46 @@ namespace Trips.Service.Servises
             _iManager = iManager;
             _mapper = mapper;
         }
-        public List<AttractionDto> Get()
+        public async Task<List<AttractionDto>> GetAsync()
         {
-            List<Attraction> attractions = _iManager.IAttractionRep.Get();
+            List<Attraction> attractions = await _iManager.IAttractionRep.GetAsync();
             List<AttractionDto> attractionDtos = _mapper.Map<List<AttractionDto>>(attractions);
             return attractionDtos;
         }
-        public List<Attraction> GetAll()
+        public async Task<List<Attraction>> GetAllAsync()
         {
-            return _iManager.IAttractionRep.GetAll();
+            return await _iManager.IAttractionRep.GetAllAsync();
         }
-        public AttractionDto? GetById(int id)
+        public async Task<AttractionDto>? GetByIdAsync(int id)
         {
-            Attraction attraction = _iManager.IAttractionRep.GetById(id);
+            Attraction attraction =await _iManager.IAttractionRep.GetByIdAsync(id);
             AttractionDto attractionDto = _mapper.Map<AttractionDto>(attraction);
             return attractionDto;
         }
 
-        public AttractionDto Add(AttractionDto attractionDto)
+        public async Task<AttractionDto> AddAsync(AttractionDto attractionDto)
         {
             Attraction attraction = _mapper.Map<Attraction>(attractionDto);
-            attraction = _iManager.IAttractionRep.Add(attraction);
+            attraction =await _iManager.IAttractionRep.AddAsync(attraction);
             if (attraction!=null)
-                _iManager.Save();
+              await _iManager.SaveAsync();
             attractionDto = _mapper.Map<AttractionDto>(attraction);
             return attractionDto;
         }
-        public AttractionDto Update(int id, AttractionDto attractionDto)
+        public async Task<AttractionDto> UpdateAsync(int id, AttractionDto attractionDto)
         {
             Attraction attraction = _mapper.Map<Attraction>(attractionDto);
-            attraction = _iManager.IAttractionRep.Update(id, attraction);
+            attraction =await _iManager.IAttractionRep.UpdateAsync(id, attraction);
             if (attraction != null)
-                _iManager.Save();
+              await _iManager.SaveAsync();
             attractionDto = _mapper.Map<AttractionDto>(attraction);
             return attractionDto;
         }
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            bool flag= _iManager.IAttractionRep.Delete(id);
+            bool flag=await _iManager.IAttractionRep.DeleteAsync(id);
             if (flag)
-                _iManager.Save();
+               await _iManager.SaveAsync();
             return flag;
         }
     }

@@ -16,9 +16,9 @@ namespace Trips.Data.Repository
         {
 
         }
-        public List<Attraction> GetAll()
+        public async Task<List<Attraction>> GetAllAsync()
         {
-            return _dataSet.Include(x=>x.trips).ToList();
+            return await _dataSet.Include(x=>x.trips).ToListAsync();
         }
     }
 }

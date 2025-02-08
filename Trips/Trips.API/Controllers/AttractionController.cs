@@ -22,21 +22,21 @@ namespace Trips.API.Controllers
         }
         // GET: api/<AttractionController>
         [HttpGet]
-        public ActionResult<IEnumerable<AttractionDto>> Get()
+        public async Task<ActionResult<IEnumerable<AttractionDto>>> Get()
         {
-            return _iService.Get();
+            return await _iService.GetAsync();
         }
         [HttpGet("GetAll")]
-        public ActionResult<IEnumerable<Attraction>> GetAll()
+        public async Task<ActionResult<IEnumerable<Attraction>>> GetAll()
         {
-            return _iService.GetAll();
+            return await _iService.GetAllAsync();
         }
 
         // GET api/<UserControllers>/5
         [HttpGet("{id}")]
-        public ActionResult<AttractionDto> Get(int id)
+        public async Task<ActionResult<AttractionDto>> Get(int id)
         {
-            AttractionDto attractionDto = _iService.GetById(id);
+            AttractionDto attractionDto = await _iService.GetByIdAsync(id);
             if (attractionDto == null)
                 return NotFound();
             return attractionDto;
@@ -44,10 +44,10 @@ namespace Trips.API.Controllers
 
         // POST api/<UserControllers>
         [HttpPost]
-        public ActionResult<AttractionDto> Post([FromBody] AttractionPostModel attractionPostModel)
+        public async Task<ActionResult<AttractionDto>> Post([FromBody] AttractionPostModel attractionPostModel)
         {
             AttractionDto attractionDto = _mapper.Map<AttractionDto>(attractionPostModel);
-            attractionDto = _iService.Add(attractionDto);
+            attractionDto =await _iService.AddAsync(attractionDto);
             if (attractionDto == null)
                 return NotFound();
             return attractionDto;
@@ -55,10 +55,10 @@ namespace Trips.API.Controllers
 
         // PUT api/<UserControllers>/5
         [HttpPut("{id}")]
-        public ActionResult<AttractionDto> Put(int id, [FromBody] AttractionPostModel attractionPostModel)
+        public async Task<ActionResult<AttractionDto>> Put(int id, [FromBody] AttractionPostModel attractionPostModel)
         {
             AttractionDto attractionDto = _mapper.Map<AttractionDto>(attractionPostModel);
-            attractionDto = _iService.Update(id, attractionDto);
+            attractionDto =await _iService.UpdateAsync(id, attractionDto);
             if (attractionDto == null)
                 return NotFound();
             return attractionDto;
@@ -66,9 +66,9 @@ namespace Trips.API.Controllers
 
         // DELETE api/<UserControllers>/5
         [HttpDelete("{id}")]
-        public ActionResult<bool> Delete(int id)
+        public async Task<ActionResult<bool>> DeleteAsync(int id)
         {
-            return _iService.Delete(id);
+            return await _iService.DeleteAsync(id);
         }
     }
 }

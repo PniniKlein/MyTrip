@@ -21,46 +21,46 @@ namespace Trips.Service.Servises
             _iManager = iManager;
             _mapper = mapper;
         }
-        public List<OrderDto> Get()
+        public async Task<List<OrderDto>> GetAsync()
         {
-            List<Order> orders = _iManager.IOrderRep.Get();
+            List<Order> orders = await _iManager.IOrderRep.GetAsync();
             List<OrderDto> ordersDtos = _mapper.Map<List<OrderDto>>(orders);
             return ordersDtos;
         }
-        public List<Order> GetAll()
+        public async Task<List<Order>> GetAllAsync()
         {
-            return _iManager.IOrderRep.GetAll();
+            return await _iManager.IOrderRep.GetAllAsync();
         }
-        public OrderDto? GetById(int id)
+        public async Task<OrderDto>? GetByIdAsync(int id)
         {
-            Order order = _iManager.IOrderRep.GetById(id);
+            Order order =await _iManager.IOrderRep.GetByIdAsync(id);
             OrderDto orderDto = _mapper.Map<OrderDto>(order);
             return orderDto;
         }
 
-        public OrderDto Add(OrderDto orderDto)
+        public async Task<OrderDto> AddAsync(OrderDto orderDto)
         {
             Order order = _mapper.Map<Order>(orderDto);
-            order= _iManager.IOrderRep.Add(order);
+            order=await _iManager.IOrderRep.AddAsync(order);
             if (order != null)
-                _iManager.Save();
+               await _iManager.SaveAsync();
             orderDto = _mapper.Map<OrderDto>(order);
             return orderDto;
         }
-        public OrderDto Update(int id, OrderDto orderDto)
+        public async Task<OrderDto> UpdateAsync(int id, OrderDto orderDto)
         {
             Order order = _mapper.Map<Order>(orderDto);
-            order = _iManager.IOrderRep.Update(id, order);
+            order =await _iManager.IOrderRep.UpdateAsync(id, order);
             if (order != null)
-                _iManager.Save();
+               await _iManager.SaveAsync();
             orderDto = _mapper.Map<OrderDto>(order);
             return orderDto;
         }
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-           bool flag=_iManager.IOrderRep.Delete(id);
+           bool flag=await _iManager.IOrderRep.DeleteAsync(id);
             if(flag)
-                _iManager.Save();
+               await _iManager.SaveAsync();
             return flag;
         }
     }

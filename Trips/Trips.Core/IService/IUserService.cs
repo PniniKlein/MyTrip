@@ -10,11 +10,11 @@ namespace Trips.Core.IService
 {
     public interface IUserService
     {
-        List<UserDto> Get();
-        List<User> GetAll();
-        UserDto GetById(int id);
-        UserDto Add(UserDto userDto);
-        UserDto Update(int id, UserDto userDto);
-        bool Delete(int id);
+        Task<List<UserDto>> GetAsync();
+        Task<List<User>> GetAllAsync();
+        Task<UserDto> GetByIdAsync(int id);
+        Task<UserDto> AddAsync(UserDto userDto);
+        Task<UserDto> UpdateAsync(int id, UserDto userDto);
+        Task<bool> DeleteAsync(int id);
     }
 }

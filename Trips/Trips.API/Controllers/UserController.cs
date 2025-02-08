@@ -22,21 +22,21 @@ namespace Trips.API.Controllers
         }
         // GET: api/<UserController>
         [HttpGet]
-        public ActionResult<IEnumerable<UserDto>> Get()
+        public async Task<ActionResult<IEnumerable<UserDto>>> Get()
         {
-            return _iService.Get();
+            return await _iService.GetAsync();
         }
         [HttpGet("GetAll")]
-        public ActionResult<IEnumerable<User>> GetAll()
+        public async Task<ActionResult<IEnumerable<User>>> GetAll()
         {
-            return _iService.GetAll();
+            return await _iService.GetAllAsync();
         }
 
         // GET api/<UserControllers>/5
         [HttpGet("{id}")]
-        public ActionResult<UserDto> Get(int id)
+        public async Task<ActionResult<UserDto>> Get(int id)
         {
-            UserDto userDto = _iService.GetById(id);
+            UserDto userDto =await _iService.GetByIdAsync(id);
             if (userDto == null)
                 return NotFound();
             return userDto;
@@ -44,10 +44,10 @@ namespace Trips.API.Controllers
 
         // POST api/<UserControllers>
         [HttpPost]
-        public ActionResult<UserDto> Post([FromBody] UserPostModel userPostModel)
+        public async Task<ActionResult<UserDto>> Post([FromBody] UserPostModel userPostModel)
         {
             UserDto userDto = _mapper.Map<UserDto>(userPostModel);
-            userDto = _iService.Add(userDto);
+            userDto =await _iService.AddAsync(userDto);
             if (userDto == null)
                 return NotFound();
             return userDto;
@@ -55,10 +55,10 @@ namespace Trips.API.Controllers
 
         // PUT api/<UserControllers>/5
         [HttpPut("{id}")]
-        public ActionResult<UserDto> Put(int id, [FromBody] UserPostModel userPostModel)
+        public async Task<ActionResult<UserDto>> Put(int id, [FromBody] UserPostModel userPostModel)
         {
             UserDto userDto = _mapper.Map<UserDto>(userPostModel);
-            userDto = _iService.Update(id, userDto);
+            userDto =await _iService.UpdateAsync(id, userDto);
             if (userDto == null)
                 return NotFound();
             return userDto;
@@ -66,9 +66,9 @@ namespace Trips.API.Controllers
 
         // DELETE api/<UserControllers>/5
         [HttpDelete("{id}")]
-        public ActionResult<bool> Delete(int id)
+        public async Task<ActionResult<bool>> Delete(int id)
         {
-            return _iService.Delete(id);
+            return await _iService.DeleteAsync(id);
         }
     }
 }

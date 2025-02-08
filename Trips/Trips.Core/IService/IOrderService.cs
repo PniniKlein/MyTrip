@@ -10,11 +10,11 @@ namespace Trips.Core.IService
 {
     public interface IOrderService
     {
-        List<OrderDto> Get();
-        List<Order> GetAll();
-        OrderDto GetById(int id);
-        OrderDto Add(OrderDto orderDto);
-        OrderDto Update(int id, OrderDto orderDto);
-        bool Delete(int id);
+        Task<List<OrderDto>> GetAsync();
+        Task<List<Order>> GetAllAsync();
+        Task<OrderDto> GetByIdAsync(int id);
+        Task<OrderDto> AddAsync(OrderDto orderDto);
+        Task<OrderDto> UpdateAsync(int id, OrderDto orderDto);
+        Task<bool> DeleteAsync(int id);
     }
 }

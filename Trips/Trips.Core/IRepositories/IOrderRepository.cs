@@ -10,6 +10,6 @@ namespace Trips.Core.IRepositories
 {
     public interface IOrderRepository : IRepository<Order>
     {
-        List<Order> GetAll();
+        Task<List<Order>> GetAllAsync();
     }
 }
